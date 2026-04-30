@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const product_controller_1 = require("../controllers/product.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const upload_middleware_1 = require("../middleware/upload.middleware");
+const asyncHandler_1 = require("../utils/asyncHandler");
+const router = (0, express_1.Router)();
+router.get('/', (0, asyncHandler_1.asyncHandler)(product_controller_1.getAllProducts));
+router.get('/saved', auth_middleware_1.verifyToken, (0, asyncHandler_1.asyncHandler)(product_controller_1.getSavedProducts));
+router.get('/:id', (0, asyncHandler_1.asyncHandler)(product_controller_1.getProductById));
+router.post('/:id/save', auth_middleware_1.verifyToken, (0, asyncHandler_1.asyncHandler)(product_controller_1.saveProduct));
+router.delete('/:id/save', auth_middleware_1.verifyToken, (0, asyncHandler_1.asyncHandler)(product_controller_1.unsaveProduct));
+router.post('/', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, upload_middleware_1.uploadProductMedia, (0, asyncHandler_1.asyncHandler)(product_controller_1.createProduct));
+router.put('/:id', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, upload_middleware_1.uploadProductMedia, (0, asyncHandler_1.asyncHandler)(product_controller_1.updateProduct));
+router.delete('/:id', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(product_controller_1.deleteProduct));
+router.patch('/:id/toggle', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(product_controller_1.toggleProductStatus));
+exports.default = router;

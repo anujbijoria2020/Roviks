@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const admin_controller_1 = require("../controllers/admin.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const asyncHandler_1 = require("../utils/asyncHandler");
+const router = (0, express_1.Router)();
+router.get('/stats', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(admin_controller_1.getStats));
+router.get('/dropshippers', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(admin_controller_1.getAllDropshippers));
+router.patch('/dropshippers/:id/approve', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(admin_controller_1.approveDropshipper));
+router.patch('/dropshippers/:id/block', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(admin_controller_1.blockDropshipper));
+router.get('/dropshippers/:id/orders', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(admin_controller_1.getDropshipperOrders));
+exports.default = router;
