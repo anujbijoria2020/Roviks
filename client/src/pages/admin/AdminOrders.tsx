@@ -61,10 +61,10 @@ const AdminOrders = () => {
   }
 
   return (
-    <div className="animate-[fadeIn_0.2s_ease] text-white">
+    <div className="animate-[fadeIn_0.2s_ease] text-foreground">
       <div className="flex items-center gap-2">
         <h1 className="text-3xl font-bold">Orders</h1>
-        <span className="rounded-full bg-zinc-800 px-3 py-1 text-xs text-zinc-300">{orders.length}</span>
+        <span className="rounded-full bg-surface-secondary px-3 py-1 text-xs text-foreground-secondary">{orders.length}</span>
       </div>
 
       <div className="mt-6 flex flex-wrap gap-2">
@@ -75,8 +75,8 @@ const AdminOrders = () => {
             onClick={() => setSelectedStatus(tab)}
             className={`rounded-lg px-4 py-2 text-sm font-medium capitalize transition ${
               selectedStatus === tab
-                ? 'bg-orange-500 text-white'
-                : 'border border-zinc-800 bg-[#1a1a1a] text-zinc-400 hover:border-zinc-600'
+                ? 'bg-primary text-foreground'
+                : 'border border-border bg-surface-secondary text-foreground-muted hover:border-zinc-600'
             }`}
           >
             {tab}
@@ -84,7 +84,7 @@ const AdminOrders = () => {
         ))}
       </div>
 
-      <div className="mt-4 overflow-hidden rounded-xl border border-zinc-800 bg-[#1a1a1a]">
+      <div className="mt-4 overflow-hidden rounded-xl border border-border bg-surface-secondary">
         {isLoading ? (
           <div className="space-y-3 p-4">
             <LoadingSkeleton className="h-12" />
@@ -94,7 +94,7 @@ const AdminOrders = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full">
-              <thead className="bg-[#111111] text-left text-xs uppercase tracking-wider text-zinc-500">
+              <thead className="bg-surface text-left text-xs uppercase tracking-wider text-foreground-muted">
                 <tr>
                   <th className="px-4 py-3">Order ID</th>
                   <th className="px-4 py-3">Dropshipper</th>
@@ -110,28 +110,28 @@ const AdminOrders = () => {
                 {orders.map((order) => {
                   const image = order.productId?.media?.find((m) => m.type === 'image')?.url
                   return (
-                    <tr key={order._id} className="border-t border-zinc-800">
-                      <td className="px-4 py-3 font-mono text-sm text-orange-500">{order.orderId}</td>
+                    <tr key={order._id} className="border-t border-border">
+                      <td className="px-4 py-3 font-mono text-sm text-primary">{order.orderId}</td>
                       <td className="px-4 py-3 text-sm">
-                        <p className="text-white">{order.dropshipperId?.fullName}</p>
-                        <p className="text-xs text-zinc-500">{order.dropshipperId?.phone}</p>
+                        <p className="text-foreground">{order.dropshipperId?.fullName}</p>
+                        <p className="text-xs text-foreground-muted">{order.dropshipperId?.phone}</p>
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           {image ? (
                             <img src={getImageUrl(image)} alt={order.productId?.name} className="h-10 w-10 rounded object-cover" onError={handleImageError} />
                           ) : (
-                            <div className="h-10 w-10 rounded bg-zinc-800" />
+                            <div className="h-10 w-10 rounded bg-surface-secondary" />
                           )}
-                          <p className="max-w-28 truncate text-sm text-white">{order.productId?.name}</p>
+                          <p className="max-w-28 truncate text-sm text-foreground">{order.productId?.name}</p>
                         </div>
                       </td>
                       <td className="px-4 py-3 text-sm">
-                        <p className="text-white">{order.customerName}</p>
-                        <p className="text-xs text-zinc-500">{order.customerPhone}</p>
+                        <p className="text-foreground">{order.customerName}</p>
+                        <p className="text-xs text-foreground-muted">{order.customerPhone}</p>
                       </td>
-                      <td className="px-4 py-3 font-medium text-white">{order.quantity}</td>
-                      <td className="px-4 py-3 text-sm text-zinc-400">
+                      <td className="px-4 py-3 font-medium text-foreground">{order.quantity}</td>
+                      <td className="px-4 py-3 text-sm text-foreground-muted">
                         {new Date(order.createdAt).toLocaleDateString('en-IN', {
                           day: '2-digit',
                           month: 'short',
@@ -145,7 +145,7 @@ const AdminOrders = () => {
                         <button
                           type="button"
                           onClick={() => openDrawer(order)}
-                          className="text-xs text-orange-500 hover:underline"
+                          className="text-xs text-primary hover:underline"
                         >
                           Manage
                         </button>
@@ -169,7 +169,7 @@ const AdminOrders = () => {
       ) : null}
 
       <aside
-        className={`fixed right-0 top-0 z-50 h-full w-[480px] max-w-[90vw] border-l border-zinc-800 bg-[#111111] transition-transform ${
+        className={`fixed right-0 top-0 z-50 h-full w-[480px] max-w-[90vw] border-l border-border bg-surface transition-transform ${
           isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -177,42 +177,42 @@ const AdminOrders = () => {
           <div className="flex h-full flex-col">
             <div className="flex items-start justify-between p-5">
               <div>
-                <h2 className="text-lg font-bold text-white">Manage Order</h2>
-                <p className="mt-1 font-mono text-sm text-orange-500">{selectedOrder.orderId}</p>
+                <h2 className="text-lg font-bold text-foreground">Manage Order</h2>
+                <p className="mt-1 font-mono text-sm text-primary">{selectedOrder.orderId}</p>
               </div>
-              <button type="button" onClick={() => setIsDrawerOpen(false)} className="text-zinc-400 hover:text-white">
+              <button type="button" onClick={() => setIsDrawerOpen(false)} className="text-foreground-muted hover:text-foreground">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             <div className="flex-1 overflow-y-auto px-5 pb-5">
               <div className="space-y-3 text-sm">
-                <div className="rounded-xl bg-[#1a1a1a] p-4">
-                  <p className="mb-3 text-xs uppercase text-zinc-500">Dropshipper</p>
-                  <p className="text-white">{selectedOrder.dropshipperId?.fullName}</p>
-                  <p className="mt-1 text-zinc-400">{selectedOrder.dropshipperId?.phone}</p>
-                  <p className="mt-1 text-zinc-400">{selectedOrder.dropshipperId?.whatsappNumber}</p>
+                <div className="rounded-xl bg-surface-secondary p-4">
+                  <p className="mb-3 text-xs uppercase text-foreground-muted">Dropshipper</p>
+                  <p className="text-foreground">{selectedOrder.dropshipperId?.fullName}</p>
+                  <p className="mt-1 text-foreground-muted">{selectedOrder.dropshipperId?.phone}</p>
+                  <p className="mt-1 text-foreground-muted">{selectedOrder.dropshipperId?.whatsappNumber}</p>
                   <button
                     type="button"
                     onClick={() =>
                       window.open(`https://wa.me/${selectedOrder.dropshipperId?.whatsappNumber ?? ''}`, '_blank')
                     }
-                    className="mt-3 inline-flex items-center gap-1 rounded-lg bg-[#25D366] px-3 py-1.5 text-xs text-white"
+                    className="mt-3 inline-flex items-center gap-1 rounded-lg bg-[#25D366] px-3 py-1.5 text-xs text-foreground"
                   >
                     <MessageCircle className="h-3 w-3" />
                     Contact on WhatsApp
                   </button>
                 </div>
 
-                <div className="rounded-xl bg-[#1a1a1a] p-4">
-                  <p className="mb-3 text-xs uppercase text-zinc-500">Customer Details</p>
-                  <p className="text-white">{selectedOrder.customerName}</p>
-                  <p className="mt-1 text-zinc-400">{selectedOrder.customerPhone}</p>
-                  <p className="mt-1 text-zinc-400">{selectedOrder.customerAddress}</p>
-                  <p className="mt-1 text-zinc-400">{selectedOrder.customerPincode}</p>
+                <div className="rounded-xl bg-surface-secondary p-4">
+                  <p className="mb-3 text-xs uppercase text-foreground-muted">Customer Details</p>
+                  <p className="text-foreground">{selectedOrder.customerName}</p>
+                  <p className="mt-1 text-foreground-muted">{selectedOrder.customerPhone}</p>
+                  <p className="mt-1 text-foreground-muted">{selectedOrder.customerAddress}</p>
+                  <p className="mt-1 text-foreground-muted">{selectedOrder.customerPincode}</p>
                 </div>
 
-                <div className="flex gap-3 rounded-xl bg-[#1a1a1a] p-4">
+                <div className="flex gap-3 rounded-xl bg-surface-secondary p-4">
                   {selectedOrder.productId?.media?.[0]?.url ? (
                     <img
                       src={getImageUrl(selectedOrder.productId.media[0].url)}
@@ -221,12 +221,12 @@ const AdminOrders = () => {
                       onError={handleImageError}
                     />
                   ) : (
-                    <div className="h-14 w-14 rounded bg-zinc-800" />
+                    <div className="h-14 w-14 rounded bg-surface-secondary" />
                   )}
                   <div>
-                    <p className="text-white">{selectedOrder.productId?.name}</p>
-                    <p className="mt-1 text-zinc-400">Qty: {selectedOrder.quantity}</p>
-                    <p className="mt-1 text-zinc-400">
+                    <p className="text-foreground">{selectedOrder.productId?.name}</p>
+                    <p className="mt-1 text-foreground-muted">Qty: {selectedOrder.quantity}</p>
+                    <p className="mt-1 text-foreground-muted">
                       Total: ₹{(selectedOrder.productId?.dropshipperPrice ?? 0) * selectedOrder.quantity}
                     </p>
                   </div>
@@ -234,11 +234,11 @@ const AdminOrders = () => {
               </div>
 
               <div className="mt-6">
-                <p className="mb-3 text-sm font-medium text-zinc-400">Update Order Status</p>
+                <p className="mb-3 text-sm font-medium text-foreground-muted">Update Order Status</p>
                 <select
                   value={status}
                   onChange={(event) => setStatus(event.target.value)}
-                  className="w-full rounded-lg border border-zinc-800 bg-[#1a1a1a] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                  className="w-full rounded-lg border border-border bg-surface-secondary px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                 >
                   {['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'].map((item) => (
                     <option key={item} value={item}>
@@ -250,24 +250,24 @@ const AdminOrders = () => {
                   value={trackingNumber}
                   onChange={(event) => setTrackingNumber(event.target.value)}
                   placeholder="Tracking number (optional)"
-                  className="mt-3 w-full rounded-lg border border-zinc-800 bg-[#1a1a1a] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                  className="mt-3 w-full rounded-lg border border-border bg-surface-secondary px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                 />
                 <textarea
                   rows={2}
                   value={adminNote}
                   onChange={(event) => setAdminNote(event.target.value)}
                   placeholder="Note for dropshipper (optional)"
-                  className="mt-3 w-full rounded-lg border border-zinc-800 bg-[#1a1a1a] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                  className="mt-3 w-full rounded-lg border border-border bg-surface-secondary px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                 />
               </div>
             </div>
 
-            <div className="border-t border-zinc-800 p-5">
+            <div className="border-t border-border p-5">
               <button
                 type="button"
                 disabled={updatingId === selectedOrder._id}
                 onClick={() => void handleUpdateStatus()}
-                className="w-full rounded-xl bg-orange-500 py-3 font-bold text-white disabled:opacity-60"
+                className="w-full rounded-xl bg-primary py-3 font-bold text-foreground disabled:opacity-60"
               >
                 Update Order Status
               </button>

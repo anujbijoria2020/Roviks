@@ -52,12 +52,12 @@ const StartSellingSection = ({ className = '', withTopPadding = true }: StartSel
   const navigate = useNavigate()
 
   return (
-    <section className={`bg-[#0D0D0D] ${withTopPadding ? 'pt-20' : 'pt-8'} pb-20 px-8 ${className}`}>
+    <section className={`bg-background ${withTopPadding ? 'pt-20' : 'pt-8'} pb-20 px-8 ${className}`}>
       <div className="mx-auto w-full max-w-6xl text-center">
         <h2 className="text-4xl font-black uppercase leading-none sm:text-6xl">
-          <span className="text-white">Start</span> <span className="text-[#F5A623]">Selling</span>
+          <span className="text-foreground">Start</span> <span className="text-primary">Selling</span>
         </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-lg text-zinc-400">
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-foreground-muted">
           Choose a category below to browse and download content for your clothing business.
         </p>
       </div>
@@ -69,7 +69,7 @@ const StartSellingSection = ({ className = '', withTopPadding = true }: StartSel
           return (
             <article
               key={card.slug}
-              className={`${cardBaseClass} border border-zinc-700/70 bg-zinc-900 hover:-translate-y-1 hover:border-[#F5A623]/60`}
+              className={`${cardBaseClass} border border-border/70 bg-zinc-900 hover:-translate-y-1 hover:border-primary/60`}
               onClick={() => navigate(card.href)}
             >
               <img
@@ -82,24 +82,24 @@ const StartSellingSection = ({ className = '', withTopPadding = true }: StartSel
 
               <div className="relative flex h-full flex-col justify-between p-6">
                 <div className="flex items-start justify-between gap-3">
-                  <span className="rounded-full border border-white/30 bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/90 backdrop-blur-sm">
+                  <span className="rounded-full border border-white/30 bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-foreground/90 backdrop-blur-sm">
                     {card.title}
                   </span>
-                  <div className="inline-flex rounded-xl border border-white/25 bg-black/30 p-3 text-[#F5A623] backdrop-blur-sm">
+                  <div className="inline-flex rounded-xl border border-white/25 bg-black/30 p-3 text-primary backdrop-blur-sm">
                     <Icon className="h-6 w-6" />
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-3xl font-black uppercase leading-none text-white">{card.title}</h3>
-                  <p className="mt-3 max-w-[26ch] text-sm leading-relaxed text-zinc-200">{card.description}</p>
+                  <h3 className="text-3xl font-black uppercase leading-none text-foreground">{card.title}</h3>
+                  <p className="mt-3 max-w-[26ch] text-sm leading-relaxed text-foreground-secondary">{card.description}</p>
                   <button
                     type="button"
                     onClick={(event) => {
                       event.stopPropagation()
                       navigate(card.href)
                     }}
-                    className="mt-5 rounded-full border border-[#F5A623]/70 bg-black/40 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#F5A623] transition hover:bg-[#F5A623] hover:text-black"
+                    className="mt-5 rounded-full border border-primary/70 bg-black/40 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-primary transition hover:bg-primary hover:text-primary-foreground"
                   >
                     {card.cta}
                   </button>

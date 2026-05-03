@@ -1,8 +1,9 @@
-import { ArrowUpRight, Bell, Grid, LayoutDashboard, LogOut, Package, User } from 'lucide-react'
+import { ArrowUpRight, Bell, Grid, LayoutDashboard, LogOut, Moon, Package, Sun, User } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { getNotifications } from '../api/admin.api'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
 import type { Notification } from '../types/index'
 
 const navItems = [
@@ -21,6 +22,7 @@ const mobileItems = [
 
 const DashboardLayout = () => {
   const { user, logout } = useAuth()
+  const { theme, toggleTheme } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
   const [notifications, setNotifications] = useState<Notification[]>([])
@@ -55,9 +57,19 @@ const DashboardLayout = () => {
   }
 
   return (
-    <div className="bg-[#0d0d0d] text-white">
-      <aside className="fixed left-0 top-0 hidden h-screen w-56 flex-col bg-[#111111] lg:flex">
-        <div className="px-6 pb-8 pt-6 text-2xl font-black text-orange-500">ROVIKS</div>
+    <div className="bg-gray-100 dark:bg-background text-gray-900 dark:text-foreground">
+      <aside className="fixed left-0 top-0 hidden h-screen w-56 flex-col bg-white dark:bg-surface lg:flex">
+        <div className="flex items-center justify-between px-6 pb-8 pt-6">
+          <div className="text-2xl font-black text-primary">ROVIKS</div>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="rounded-lg p-2 text-gray-600 dark:text-foreground-muted transition hover:bg-gray-100 dark:hover:bg-surface-secondary hover:text-gray-900 dark:hover:text-foreground"
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+        </div>
 
         <nav className="flex-1 space-y-1 px-2">
           {navItems.map(({ label, to, icon: Icon }) => (
@@ -67,15 +79,15 @@ const DashboardLayout = () => {
               className={() =>
                 `mx-2 flex items-center gap-3 rounded-lg px-4 py-2.5 transition ${
                   isActiveLink(to)
-                    ? 'bg-[#1f1f1f] text-orange-500'
-                    : 'text-zinc-400 hover:bg-[#1a1a1a] hover:text-white'
+                    ? 'bg-gray-100 dark:bg-[#1f1f1f] text-primary'
+                    : 'text-gray-600 dark:text-foreground-muted hover:bg-gray-100 dark:hover:bg-surface-secondary hover:text-gray-900 dark:hover:text-foreground'
                 }`
               }
             >
               <Icon className="h-4 w-4" />
               <span className="text-sm">{label}</span>
               {label === 'Notifications' && unreadCount > 0 ? (
-                <span className="ml-auto inline-flex min-w-5 items-center justify-center rounded-full bg-orange-500 px-1.5 text-[10px] font-semibold text-white">
+                <span className="ml-auto inline-flex min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[10px] font-semibold text-foreground">
                   {unreadCount}
                 </span>
               ) : null}
@@ -86,7 +98,7 @@ const DashboardLayout = () => {
         <button
           type="button"
           onClick={() => navigate('/catalog')}
-          className="mx-2 mb-4 flex items-center justify-between rounded-xl border border-orange-500/30 bg-orange-500/10 p-3 text-left text-orange-500 transition hover:border-orange-500/60 hover:bg-orange-500/20"
+          className="mx-2 mb-4 flex items-center justify-between rounded-xl border border-primary/30 bg-orange-50 dark:bg-primary/10 p-3 text-left text-orange-600 dark:text-primary transition hover:border-primary/60 hover:bg-orange-100 dark:hover:bg-primary/20"
         >
           <span className="flex items-center gap-2 text-sm font-medium">
             <Grid className="h-4 w-4" />
@@ -95,12 +107,12 @@ const DashboardLayout = () => {
           <ArrowUpRight className="h-4 w-4" />
         </button>
 
-        <div className="border-t border-zinc-800 px-4 py-4">
-          <p className="truncate text-sm text-white">{user?.fullName ?? 'User'}</p>
+        <div className="border-t border-gray-200 dark:border-border px-4 py-4">
+          <p className="truncate text-sm text-gray-900 dark:text-foreground">{user?.fullName ?? 'User'}</p>
           <button
             type="button"
             onClick={logout}
-            className="mt-2 flex items-center gap-2 text-sm text-zinc-400 transition hover:text-red-400"
+            className="mt-2 flex items-center gap-2 text-sm text-gray-600 dark:text-foreground-muted transition hover:text-red-400"
           >
             <LogOut className="h-4 w-4" />
             Sign out
@@ -108,11 +120,11 @@ const DashboardLayout = () => {
         </div>
       </aside>
 
-      <main className="min-h-screen bg-[#0d0d0d] p-4 pb-24 lg:ml-56 lg:p-8 lg:pb-8">
+      <main className="min-h-screen bg-gray-100 dark:bg-background p-4 pb-24 lg:ml-56 lg:p-8 lg:pb-8">
         <Outlet />
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 border-t border-zinc-800 bg-[#111111] py-2 lg:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 border-t border-gray-200 dark:border-border bg-white dark:bg-surface py-2 lg:hidden">
         <div className="flex items-center justify-around">
           {mobileItems.map(({ label, to, icon: Icon }) => (
             <NavLink
@@ -121,7 +133,7 @@ const DashboardLayout = () => {
               end={label === 'Dashboard'}
               className={({ isActive }) =>
                 `flex flex-col items-center gap-1 text-xs ${
-                  isActive ? 'text-orange-500' : 'text-zinc-400'
+                  isActive ? 'text-primary' : 'text-gray-600 dark:text-foreground-muted'
                 }`
               }
             >

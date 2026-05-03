@@ -46,50 +46,50 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="flex min-h-screen animate-[fadeIn_0.2s_ease] items-center justify-center bg-[#0d0d0d] px-4 py-10">
-      <div className="w-full max-w-md rounded-2xl border border-zinc-800 bg-[#111111] p-8">
+    <div className="flex min-h-screen animate-[fadeIn_0.2s_ease] items-center justify-center bg-background px-4 py-10">
+      <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-8">
         <h1 className="text-center text-3xl font-bold text-[#f97316]">Join ROVIKS</h1>
-        <p className="mt-2 text-center text-sm text-zinc-400">Start your dropshipping journey</p>
+        <p className="mt-2 text-center text-sm text-foreground-muted">Start your dropshipping journey</p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div className="relative">
-            <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+            <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-muted" />
             <input
               type="text"
               required
               placeholder="Full Name"
               value={formData.fullName}
               onChange={(event) => handleInputChange('fullName', event.target.value)}
-              className="w-full rounded-lg border border-zinc-700 bg-[#1a1a1a] py-3 pl-10 pr-4 text-white placeholder-zinc-500 outline-none focus:border-orange-500"
+              className="w-full rounded-lg border border-border bg-surface-secondary py-3 pl-10 pr-4 text-foreground placeholder-zinc-500 outline-none focus:border-primary"
             />
           </div>
 
           <div className="relative">
-            <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+            <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-muted" />
             <input
               type="email"
               required
               placeholder="Email"
               value={formData.email}
               onChange={(event) => handleInputChange('email', event.target.value)}
-              className="w-full rounded-lg border border-zinc-700 bg-[#1a1a1a] py-3 pl-10 pr-4 text-white placeholder-zinc-500 outline-none focus:border-orange-500"
+              className="w-full rounded-lg border border-border bg-surface-secondary py-3 pl-10 pr-4 text-foreground placeholder-zinc-500 outline-none focus:border-primary"
             />
           </div>
 
           <div className="relative">
-            <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+            <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-muted" />
             <input
               type={showPassword ? 'text' : 'password'}
               required
               placeholder="Password"
               value={formData.password}
               onChange={(event) => handleInputChange('password', event.target.value)}
-              className="w-full rounded-lg border border-zinc-700 bg-[#1a1a1a] py-3 pl-10 pr-12 text-white placeholder-zinc-500 outline-none focus:border-orange-500"
+              className="w-full rounded-lg border border-border bg-surface-secondary py-3 pl-10 pr-12 text-foreground placeholder-zinc-500 outline-none focus:border-primary"
             />
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 transition hover:text-zinc-300"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground-muted transition hover:text-foreground-secondary"
             >
               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
@@ -97,56 +97,56 @@ const RegisterPage = () => {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="relative">
-              <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+              <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-muted" />
               <input
                 type="tel"
                 required
                 placeholder="Phone"
                 value={formData.phone}
                 onChange={(event) => handleInputChange('phone', event.target.value)}
-                className="w-full rounded-lg border border-zinc-700 bg-[#1a1a1a] py-3 pl-10 pr-4 text-white placeholder-zinc-500 outline-none focus:border-orange-500"
+                className="w-full rounded-lg border border-border bg-surface-secondary py-3 pl-10 pr-4 text-foreground placeholder-zinc-500 outline-none focus:border-primary"
               />
             </div>
             <div className="relative">
-              <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+              <Phone className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-muted" />
               <input
                 type="tel"
                 required
                 placeholder="WhatsApp Number"
                 value={formData.whatsappNumber}
                 onChange={(event) => handleInputChange('whatsappNumber', event.target.value)}
-                className="w-full rounded-lg border border-zinc-700 bg-[#1a1a1a] py-3 pl-10 pr-4 text-white placeholder-zinc-500 outline-none focus:border-orange-500"
+                className="w-full rounded-lg border border-border bg-surface-secondary py-3 pl-10 pr-4 text-foreground placeholder-zinc-500 outline-none focus:border-primary"
               />
             </div>
           </div>
 
           <div className="relative">
-            <MapPin className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+            <MapPin className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-muted" />
             <input
               type="text"
               required
               placeholder="City"
               value={formData.city}
               onChange={(event) => handleInputChange('city', event.target.value)}
-              className="w-full rounded-lg border border-zinc-700 bg-[#1a1a1a] py-3 pl-10 pr-4 text-white placeholder-zinc-500 outline-none focus:border-orange-500"
+              className="w-full rounded-lg border border-border bg-surface-secondary py-3 pl-10 pr-4 text-foreground placeholder-zinc-500 outline-none focus:border-primary"
             />
           </div>
 
           <div className="relative">
-            <AtSign className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+            <AtSign className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-muted" />
             <input
               type="text"
               placeholder="Instagram/Social Handle (optional)"
               value={formData.socialHandle}
               onChange={(event) => handleInputChange('socialHandle', event.target.value)}
-              className="w-full rounded-lg border border-zinc-700 bg-[#1a1a1a] py-3 pl-10 pr-4 text-white placeholder-zinc-500 outline-none focus:border-orange-500"
+              className="w-full rounded-lg border border-border bg-surface-secondary py-3 pl-10 pr-4 text-foreground placeholder-zinc-500 outline-none focus:border-primary"
             />
           </div>
 
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex w-full items-center justify-center rounded-lg bg-[#f97316] py-3 font-bold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex w-full items-center justify-center rounded-lg bg-[#f97316] py-3 font-bold text-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? (
               <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -156,7 +156,7 @@ const RegisterPage = () => {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-400">
+        <p className="mt-6 text-center text-sm text-foreground-muted">
           Already have an account?{' '}
           <Link to="/login" className="font-medium text-[#f97316] hover:underline">
             Sign in

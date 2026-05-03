@@ -34,37 +34,37 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="flex min-h-screen animate-[fadeIn_0.2s_ease] items-center justify-center bg-[#0d0d0d] px-4">
-      <div className="w-full max-w-md rounded-2xl border border-zinc-800 bg-[#111111] p-8">
+    <div className="flex min-h-screen animate-[fadeIn_0.2s_ease] items-center justify-center bg-background px-4">
+      <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-8">
         <h1 className="mb-8 text-center text-3xl font-bold text-[#f97316]">ROVIKS</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+            <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-muted" />
             <input
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="Email address"
               required
-              className="w-full rounded-lg border border-zinc-700 bg-[#1a1a1a] py-3 pl-10 pr-4 text-white placeholder-zinc-500 outline-none focus:border-orange-500"
+              className="w-full rounded-lg border border-border bg-surface-secondary py-3 pl-10 pr-4 text-foreground placeholder-zinc-500 outline-none focus:border-primary"
             />
           </div>
 
           <div className="relative">
-            <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-500" />
+            <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground-muted" />
             <input
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
               required
-              className="w-full rounded-lg border border-zinc-700 bg-[#1a1a1a] py-3 pl-10 pr-12 text-white placeholder-zinc-500 outline-none focus:border-orange-500"
+              className="w-full rounded-lg border border-border bg-surface-secondary py-3 pl-10 pr-12 text-foreground placeholder-zinc-500 outline-none focus:border-primary"
             />
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 transition hover:text-zinc-300"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-foreground-muted transition hover:text-foreground-secondary"
             >
               {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
             </button>
@@ -73,7 +73,7 @@ const LoginPage = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="flex w-full items-center justify-center rounded-lg bg-[#f97316] py-3 font-bold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex w-full items-center justify-center rounded-lg bg-[#f97316] py-3 font-bold text-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? (
               <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
@@ -83,7 +83,7 @@ const LoginPage = () => {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-400">
+        <p className="mt-6 text-center text-sm text-foreground-muted">
           Don&apos;t have an account?{' '}
           <Link to="/register" className="font-medium text-[#f97316] hover:underline">
             Register here

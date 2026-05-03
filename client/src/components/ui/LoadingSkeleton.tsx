@@ -3,7 +3,7 @@ interface LoadingSkeletonProps {
 }
 
 const LoadingSkeleton = ({ className = '' }: LoadingSkeletonProps) => {
-  return <div className={`animate-pulse rounded-lg bg-zinc-800 ${className}`.trim()} />
+  return <div className={`animate-pulse rounded-lg bg-surface-secondary ${className}`.trim()} />
 }
 
 export default LoadingSkeleton

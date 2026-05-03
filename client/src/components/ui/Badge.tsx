@@ -14,7 +14,7 @@ const statusStyles: Record<string, string> = {
 }
 
 const Badge = ({ status }: BadgeProps) => {
-  const style = statusStyles[status] ?? 'bg-orange-500/10 text-orange-500'
+  const style = statusStyles[status] ?? 'bg-primary/10 text-primary'
   const label = status.replaceAll('_', ' ')
 
   return <span className={`rounded-full px-2.5 py-1 text-xs font-medium capitalize ${style}`}>{label}</span>

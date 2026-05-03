@@ -66,16 +66,16 @@ const DashboardHome = () => {
 
   return (
     <div className="animate-[fadeIn_0.2s_ease]">
-      <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-      <p className="mt-1 text-zinc-400">Your selling activity at a glance.</p>
+      <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+      <p className="mt-1 text-foreground-muted">Your selling activity at a glance.</p>
 
       {activeAnnouncement ? (
-        <div className="mt-6 rounded-xl border border-orange-500/30 bg-orange-500/10 p-4">
-          <div className="flex items-start gap-3 border-l-4 border-orange-500 pl-3">
-            <Megaphone className="mt-0.5 h-5 w-5 shrink-0 text-orange-500" />
+        <div className="mt-6 rounded-xl border border-primary/30 bg-primary/10 p-4">
+          <div className="flex items-start gap-3 border-l-4 border-primary pl-3">
+            <Megaphone className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
             <div>
-              <p className="font-semibold text-white">{activeAnnouncement.title}</p>
-              <p className="mt-1 text-sm text-zinc-300">{activeAnnouncement.message}</p>
+              <p className="font-semibold text-foreground">{activeAnnouncement.title}</p>
+              <p className="mt-1 text-sm text-foreground-secondary">{activeAnnouncement.message}</p>
             </div>
           </div>
         </div>
@@ -101,13 +101,13 @@ const DashboardHome = () => {
 
       <section className="mt-8">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-white">Recent Orders</h2>
-          <Link to="/dashboard/orders" className="text-sm text-orange-500 hover:underline">
+          <h2 className="text-lg font-semibold text-foreground">Recent Orders</h2>
+          <Link to="/dashboard/orders" className="text-sm text-primary hover:underline">
             View all
           </Link>
         </div>
 
-        <div className="overflow-hidden rounded-xl border border-zinc-800 bg-[#1a1a1a]">
+        <div className="overflow-hidden rounded-xl border border-border bg-surface-secondary">
           {isLoading ? (
             <div className="space-y-3 p-4">
               <LoadingSkeleton className="h-12" />
@@ -117,15 +117,15 @@ const DashboardHome = () => {
           ) : recentOrders.length === 0 ? (
             <div className="flex flex-col items-center justify-center px-4 py-14 text-center">
               <Package className="h-12 w-12 text-zinc-600" />
-              <p className="mt-4 text-zinc-500">No orders yet.</p>
-              <Link to="/catalog" className="mt-2 text-sm text-orange-500 hover:underline">
+              <p className="mt-4 text-foreground-muted">No orders yet.</p>
+              <Link to="/catalog" className="mt-2 text-sm text-primary hover:underline">
                 Browse the catalog
               </Link>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full text-left text-sm text-zinc-300">
-                <thead className="bg-[#151515] text-xs uppercase tracking-wide text-zinc-400">
+              <table className="min-w-full text-left text-sm text-foreground-secondary">
+                <thead className="bg-[#151515] text-xs uppercase tracking-wide text-foreground-muted">
                   <tr>
                     <th className="px-4 py-3">Product</th>
                     <th className="px-4 py-3">Customer</th>
@@ -136,8 +136,8 @@ const DashboardHome = () => {
                 </thead>
                 <tbody>
                   {recentOrders.map((order) => (
-                    <tr key={order._id} className="border-t border-zinc-800 transition hover:bg-[#1f1f1f]">
-                      <td className="px-4 py-3 text-white">{order.productId?.name ?? 'Product'}</td>
+                    <tr key={order._id} className="border-t border-border transition hover:bg-[#1f1f1f]">
+                      <td className="px-4 py-3 text-foreground">{order.productId?.name ?? 'Product'}</td>
                       <td className="px-4 py-3">{order.customerName}</td>
                       <td className="px-4 py-3">{order.quantity}</td>
                       <td className="px-4 py-3">

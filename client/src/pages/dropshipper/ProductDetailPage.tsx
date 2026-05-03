@@ -1,8 +1,9 @@
-import { Download, Heart, MessageCircle } from 'lucide-react'
+import { Download, ExternalLink, Heart, MessageCircle, ShoppingBag } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { getProductById, getSavedProducts, saveProduct, unsaveProduct } from '../../api/product.api'
+import { pushToShopify } from '../../api/shopify.api'
 import PageLoader from '../../components/PageLoader'
 import PublicFooter from '../../components/PublicFooter'
 import PublicNavbar from '../../components/PublicNavbar'
@@ -22,6 +23,8 @@ const ProductDetailPage = () => {
   const [showAuthPrompt, setShowAuthPrompt] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isPushing, setIsPushing] = useState(false)
+  const [pushedUrl, setPushedUrl] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -131,35 +134,48 @@ const ProductDetailPage = () => {
     }
   }
 
+  const handlePushToShopify = async () => {
+    setIsPushing(true)
+    try {
+      const res = await pushToShopify(product._id)
+      setPushedUrl(res.data.productUrl)
+      toast.success('Product pushed to Shopify! 🎉')
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || 'Failed to push. Check Shopify connection in Settings.')
+    } finally {
+      setIsPushing(false)
+    }
+  }
+
   if (isLoading) {
     return <PageLoader />
   }
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#0d0d0d] text-white">
+      <div className="min-h-screen bg-background text-foreground">
         <PublicNavbar />
-        <div className="mx-auto max-w-6xl px-6 pb-16 pt-24 text-zinc-400">Product not found.</div>
+        <div className="mx-auto max-w-6xl px-6 pb-16 pt-24 text-foreground-muted">Product not found.</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#0d0d0d] text-white">
+    <div className="min-h-screen bg-background text-foreground">
       <PublicNavbar />
 
       <main className="mx-auto max-w-6xl animate-[fadeIn_0.2s_ease] px-6 pb-16 pt-24">
         <button
           type="button"
           onClick={() => navigate('/catalog')}
-          className="text-zinc-400 transition hover:text-white"
+          className="text-foreground-muted transition hover:text-foreground"
         >
           ← Back to Catalog
         </button>
 
         <div className="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-5">
           <section className="lg:col-span-3">
-            <div className="aspect-square overflow-hidden rounded-xl bg-[#1a1a1a]">
+            <div className="aspect-square overflow-hidden rounded-xl bg-surface-secondary">
               {selectedImageUrl ? (
                 <img src={getImageUrl(selectedImageUrl)} alt={product.name} className="h-full w-full object-cover" onError={handleImageError} />
               ) : (
@@ -174,7 +190,7 @@ const ProductDetailPage = () => {
                   key={`${item.url}-${index}`}
                   onClick={() => setSelectedImageIndex(index)}
                   className={`h-20 w-20 shrink-0 overflow-hidden rounded-lg border-2 ${
-                    selectedImageIndex === index ? 'border-orange-500' : 'border-zinc-800'
+                    selectedImageIndex === index ? 'border-primary' : 'border-border'
                   }`}
                 >
                   <img src={getImageUrl(item.url)} alt={`Thumb ${index + 1}`} className="h-full w-full object-cover" onError={handleImageError} />
@@ -184,8 +200,8 @@ const ProductDetailPage = () => {
 
             {videoMedia ? (
               <div className="mt-4">
-                <p className="mb-2 text-sm text-zinc-400">Product Video</p>
-                <video controls className="w-full rounded-xl bg-[#1a1a1a]">
+                <p className="mb-2 text-sm text-foreground-muted">Product Video</p>
+                <video controls className="w-full rounded-xl bg-surface-secondary">
                   <source src={getImageUrl(videoMedia.url)} />
                 </video>
               </div>
@@ -194,7 +210,7 @@ const ProductDetailPage = () => {
             <button
               type="button"
               onClick={() => void downloadAssets()}
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-zinc-700 bg-[#1a1a1a] px-6 py-3 text-white transition hover:border-orange-500"
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-surface-secondary px-6 py-3 text-foreground transition hover:border-primary"
             >
               <Download className="h-4 w-4" />
               Download All Assets
@@ -204,14 +220,14 @@ const ProductDetailPage = () => {
           <section className="lg:col-span-2">
             <Badge status={product.category?.name ?? 'category'} />
 
-            <h1 className="mt-2 text-2xl font-black uppercase text-white">{product.name}</h1>
+            <h1 className="mt-2 text-2xl font-black uppercase text-foreground">{product.name}</h1>
 
             {product.contentType === 'product' ? (
               <>
-                <div className="mt-4 rounded-xl bg-[#1a1a1a] p-4">
+                <div className="mt-4 rounded-xl bg-surface-secondary p-4">
                   <div className="flex items-end">
-                    <p className="text-3xl font-bold text-white">₹{product.dropshipperPrice}</p>
-                    <p className="ml-3 text-lg text-zinc-500 line-through">₹{product.mrp}</p>
+                    <p className="text-3xl font-bold text-foreground">₹{product.dropshipperPrice}</p>
+                    <p className="ml-3 text-lg text-foreground-muted line-through">₹{product.mrp}</p>
                   </div>
                   <p className="mt-2 text-sm font-medium text-green-400">Earn ₹{product.profitMargin} per unit</p>
                 </div>
@@ -224,16 +240,16 @@ const ProductDetailPage = () => {
                     { label: 'Material', value: product.material || '-' },
                     { label: 'Stock Status', value: product.stockStatus.replaceAll('_', ' ') },
                   ].map((item) => (
-                    <div key={item.label} className="rounded-lg bg-[#111111] p-3">
-                      <p className="text-xs uppercase tracking-wider text-zinc-500">{item.label}</p>
-                      <p className="mt-0.5 text-sm font-medium text-white">{item.value}</p>
+                    <div key={item.label} className="rounded-lg bg-surface p-3">
+                      <p className="text-xs uppercase tracking-wider text-foreground-muted">{item.label}</p>
+                      <p className="mt-0.5 text-sm font-medium text-foreground">{item.value}</p>
                     </div>
                   ))}
                 </div>
 
                 <div className="mt-4">
-                  <p className="mb-2 text-sm text-zinc-400">Description</p>
-                  <p className="text-sm leading-relaxed text-zinc-300">{product.description}</p>
+                  <p className="mb-2 text-sm text-foreground-muted">Description</p>
+                  <p className="text-sm leading-relaxed text-foreground-secondary">{product.description}</p>
                 </div>
 
                 <div className="mt-6 flex flex-col gap-3">
@@ -246,7 +262,7 @@ const ProductDetailPage = () => {
                       }
                       setIsOrderModalOpen(true)
                     }}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] py-4 font-bold text-white transition hover:bg-[#22c55e]"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] py-4 font-bold text-foreground transition hover:bg-[#22c55e]"
                   >
                     <MessageCircle className="h-5 w-5" />
                     Place Order via WhatsApp
@@ -254,25 +270,65 @@ const ProductDetailPage = () => {
                   <button
                     type="button"
                     onClick={() => void handleToggleSave()}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-zinc-700 py-3 text-zinc-400 transition hover:border-orange-500 hover:text-orange-500"
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-border py-3 text-foreground-muted transition hover:border-primary hover:text-primary"
                   >
                     <Heart className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
                     {isSaved ? 'Saved Product' : 'Save Product'}
                   </button>
+
+                  {user?.shopify?.isConnected && user?.shopify?.status === 'active' ? (
+                    <div>
+                      <button
+                        type="button"
+                        onClick={handlePushToShopify}
+                        disabled={isPushing}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#96BF48] py-3 font-bold text-foreground transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        {isPushing ? (
+                          <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                        ) : (
+                          <>
+                            <ShoppingBag className="h-5 w-5" />
+                            Add to Shopify Store
+                          </>
+                        )}
+                      </button>
+                      {pushedUrl && (
+                        <a
+                          href={pushedUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-2 flex items-center justify-center gap-1 text-xs text-[#96BF48] hover:underline"
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                          View on Shopify Store →
+                        </a>
+                      )}
+                    </div>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => navigate('/dashboard/profile')}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-border py-3 text-sm text-foreground-muted transition hover:border-[#96BF48] hover:text-[#96BF48]"
+                    >
+                      <ShoppingBag className="h-5 w-5" />
+                      Connect Shopify to push products
+                    </button>
+                  )}
                 </div>
               </>
             ) : (
               <>
-                <div className="mt-4 rounded-2xl border border-zinc-800 bg-[#1a1a1a] p-6">
-                  <h2 className="text-xl font-black uppercase text-[#F5A623]">FREE DOWNLOAD</h2>
-                  <p className="mt-2 text-sm text-zinc-400">
+                <div className="mt-4 rounded-2xl border border-border bg-surface-secondary p-6">
+                  <h2 className="text-xl font-black uppercase text-primary">FREE DOWNLOAD</h2>
+                  <p className="mt-2 text-sm text-foreground-muted">
                     Use this {product.contentType === 'mockup' ? 'mockup' : 'design'} for your store, social media, or any marketing material.
                   </p>
 
                   <button
                     type="button"
                     onClick={() => void downloadAssets()}
-                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#F5A623] py-4 font-bold text-black transition hover:bg-[#e6951a]"
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 font-bold text-primary-foreground transition hover:bg-[#e6951a]"
                   >
                     <Download className="h-5 w-5" />
                     Download All Files (ZIP)
@@ -292,7 +348,7 @@ const ProductDetailPage = () => {
                         link.download = `${product.name.replace(/[^a-z0-9]/gi, '_')}.jpg`
                         link.click()
                       }}
-                      className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-zinc-700 py-3 text-white transition hover:border-orange-500"
+                      className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-border py-3 text-foreground transition hover:border-primary"
                     >
                       <Download className="h-4 w-4" />
                       Download Primary Image
@@ -301,10 +357,10 @@ const ProductDetailPage = () => {
                 </div>
 
                 <div className="mt-4">
-                  <p className="mb-2 text-sm text-zinc-400">Suitable for:</p>
+                  <p className="mb-2 text-sm text-foreground-muted">Suitable for:</p>
                   <div className="flex flex-wrap gap-2">
                     {['Instagram Post', 'WhatsApp Status', 'Facebook Ad', 'Product Listing'].map((tag) => (
-                      <span key={tag} className="rounded-full bg-zinc-800 px-3 py-1 text-xs text-zinc-400">
+                      <span key={tag} className="rounded-full bg-surface-secondary px-3 py-1 text-xs text-foreground-muted">
                         {tag}
                       </span>
                     ))}
@@ -312,8 +368,8 @@ const ProductDetailPage = () => {
                 </div>
 
                 <div className="mt-4">
-                  <p className="mb-2 text-sm text-zinc-400">Description</p>
-                  <p className="text-sm leading-relaxed text-zinc-300">{product.description}</p>
+                  <p className="mb-2 text-sm text-foreground-muted">Description</p>
+                  <p className="text-sm leading-relaxed text-foreground-secondary">{product.description}</p>
                 </div>
               </>
             )}
@@ -331,23 +387,23 @@ const ProductDetailPage = () => {
 
       {showAuthPrompt ? (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-sm rounded-xl border border-zinc-700 bg-[#111111] p-6">
-            <h2 className="text-lg font-semibold text-white">Sign in to place orders</h2>
-            <p className="mt-2 text-sm text-zinc-400">
+          <div className="w-full max-w-sm rounded-xl border border-border bg-surface p-6">
+            <h2 className="text-lg font-semibold text-foreground">Sign in to place orders</h2>
+            <p className="mt-2 text-sm text-foreground-muted">
               You need an account to place order requests via WhatsApp.
             </p>
             <div className="mt-5 flex gap-3">
               <button
                 type="button"
                 onClick={() => navigate('/login')}
-                className="flex-1 rounded-lg bg-[#F5A623] px-4 py-2 text-sm font-bold text-black"
+                className="flex-1 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-primary-foreground"
               >
                 Sign In
               </button>
               <button
                 type="button"
                 onClick={() => navigate('/register')}
-                className="flex-1 rounded-lg border border-zinc-600 px-4 py-2 text-sm font-semibold text-zinc-200"
+                className="flex-1 rounded-lg border border-zinc-600 px-4 py-2 text-sm font-semibold text-foreground-secondary"
               >
                 Register
               </button>
@@ -355,7 +411,7 @@ const ProductDetailPage = () => {
             <button
               type="button"
               onClick={() => setShowAuthPrompt(false)}
-              className="mt-3 w-full text-sm text-zinc-500 transition hover:text-zinc-300"
+              className="mt-3 w-full text-sm text-foreground-muted transition hover:text-foreground-secondary"
             >
               Close
             </button>

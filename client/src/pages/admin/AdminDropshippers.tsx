@@ -64,10 +64,10 @@ const AdminDropshippers = () => {
   }
 
   return (
-    <div className="animate-[fadeIn_0.2s_ease] text-white">
+    <div className="animate-[fadeIn_0.2s_ease] text-foreground">
       <div className="flex items-center gap-2">
         <h1 className="text-3xl font-bold">Dropshippers</h1>
-        <span className="rounded-full bg-zinc-800 px-3 py-1 text-xs text-zinc-300">{dropshippers.length}</span>
+        <span className="rounded-full bg-surface-secondary px-3 py-1 text-xs text-foreground-secondary">{dropshippers.length}</span>
       </div>
 
       <div className="mt-4 max-w-sm">
@@ -75,11 +75,11 @@ const AdminDropshippers = () => {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Search by name or city..."
-          className="w-full rounded-lg border border-zinc-800 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white focus:border-orange-500 focus:outline-none"
+          className="w-full rounded-lg border border-border bg-surface-secondary px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none"
         />
       </div>
 
-      <div className="mt-4 overflow-hidden rounded-xl border border-zinc-800 bg-[#1a1a1a]">
+      <div className="mt-4 overflow-hidden rounded-xl border border-border bg-surface-secondary">
         {isLoading ? (
           <div className="space-y-3 p-4">
             <LoadingSkeleton className="h-12" />
@@ -89,7 +89,7 @@ const AdminDropshippers = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full">
-              <thead className="bg-[#111111] text-left text-xs uppercase tracking-wider text-zinc-500">
+              <thead className="bg-surface text-left text-xs uppercase tracking-wider text-foreground-muted">
                 <tr>
                   <th className="px-4 py-3">Name</th>
                   <th className="px-4 py-3">Contact</th>
@@ -102,24 +102,24 @@ const AdminDropshippers = () => {
               </thead>
               <tbody>
                 {filteredDropshippers.map((dropshipper) => (
-                  <tr key={dropshipper._id} className="border-t border-zinc-800">
+                  <tr key={dropshipper._id} className="border-t border-border">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-orange-500/20 text-xs text-orange-500">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/20 text-xs text-primary">
                           {(dropshipper.fullName[0] ?? 'D').toUpperCase()}
                         </div>
                         <div>
-                          <p className="text-sm text-white">{dropshipper.fullName}</p>
-                          <p className="text-xs text-zinc-500">{dropshipper.email}</p>
+                          <p className="text-sm text-foreground">{dropshipper.fullName}</p>
+                          <p className="text-xs text-foreground-muted">{dropshipper.email}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 py-3 text-sm">
-                      <p className="text-white">{dropshipper.phone}</p>
-                      <p className="text-xs text-zinc-400">{dropshipper.whatsappNumber}</p>
+                      <p className="text-foreground">{dropshipper.phone}</p>
+                      <p className="text-xs text-foreground-muted">{dropshipper.whatsappNumber}</p>
                     </td>
-                    <td className="px-4 py-3 text-sm text-zinc-400">{dropshipper.city}</td>
-                    <td className="px-4 py-3 text-sm text-zinc-400">
+                    <td className="px-4 py-3 text-sm text-foreground-muted">{dropshipper.city}</td>
+                    <td className="px-4 py-3 text-sm text-foreground-muted">
                       {new Date(dropshipper.createdAt).toLocaleDateString('en-IN', {
                         day: '2-digit',
                         month: 'short',
@@ -127,8 +127,8 @@ const AdminDropshippers = () => {
                       })}
                     </td>
                     <td className="px-4 py-3">
-                      <p className="font-bold text-white">{dropshipper.orderCount ?? 0}</p>
-                      <p className="text-xs text-zinc-500">orders</p>
+                      <p className="font-bold text-foreground">{dropshipper.orderCount ?? 0}</p>
+                      <p className="text-xs text-foreground-muted">orders</p>
                     </td>
                     <td className="px-4 py-3">
                       <span
@@ -148,7 +148,7 @@ const AdminDropshippers = () => {
                             type="button"
                             disabled={updatingId === dropshipper._id}
                             onClick={() => void handleApprove(dropshipper._id)}
-                            className="rounded-lg bg-green-500/10 px-3 py-1.5 text-xs text-green-500 transition hover:bg-green-500 hover:text-white"
+                            className="rounded-lg bg-green-500/10 px-3 py-1.5 text-xs text-green-500 transition hover:bg-green-500 hover:text-foreground"
                           >
                             Approve
                           </button>
@@ -157,7 +157,7 @@ const AdminDropshippers = () => {
                             type="button"
                             disabled={updatingId === dropshipper._id}
                             onClick={() => void handleBlock(dropshipper._id)}
-                            className="rounded-lg bg-red-500/10 px-3 py-1.5 text-xs text-red-500 transition hover:bg-red-500 hover:text-white"
+                            className="rounded-lg bg-red-500/10 px-3 py-1.5 text-xs text-red-500 transition hover:bg-red-500 hover:text-foreground"
                           >
                             Block
                           </button>
@@ -165,7 +165,7 @@ const AdminDropshippers = () => {
                         <button
                           type="button"
                           onClick={() => void handleHistory(dropshipper)}
-                          className="rounded-lg border border-zinc-700 px-3 py-1.5 text-xs text-zinc-400 transition hover:border-orange-500 hover:text-orange-500"
+                          className="rounded-lg border border-border px-3 py-1.5 text-xs text-foreground-muted transition hover:border-primary hover:text-primary"
                         >
                           History
                         </button>
@@ -181,20 +181,20 @@ const AdminDropshippers = () => {
 
       {isHistoryModalOpen && selectedDropshipper ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-[#1a1a1a] p-6">
+          <div className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-surface-secondary p-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">Order History - {selectedDropshipper.fullName}</h2>
-              <button type="button" onClick={() => setIsHistoryModalOpen(false)} className="text-zinc-400 hover:text-white">
+              <h2 className="text-lg font-bold text-foreground">Order History - {selectedDropshipper.fullName}</h2>
+              <button type="button" onClick={() => setIsHistoryModalOpen(false)} className="text-foreground-muted hover:text-foreground">
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {dropshipperOrders.length === 0 ? (
-              <p className="py-12 text-center text-zinc-500">No orders placed yet</p>
+              <p className="py-12 text-center text-foreground-muted">No orders placed yet</p>
             ) : (
               <div className="mt-4 overflow-x-auto">
                 <table className="min-w-full">
-                  <thead className="text-left text-xs uppercase text-zinc-500">
+                  <thead className="text-left text-xs uppercase text-foreground-muted">
                     <tr>
                       <th className="px-3 py-2">Order ID</th>
                       <th className="px-3 py-2">Product</th>
@@ -205,11 +205,11 @@ const AdminDropshippers = () => {
                   </thead>
                   <tbody>
                     {dropshipperOrders.map((order) => (
-                      <tr key={order._id} className="border-t border-zinc-800">
-                        <td className="px-3 py-2 text-sm text-orange-500">{order.orderId}</td>
-                        <td className="px-3 py-2 text-sm text-white">{order.productId?.name}</td>
-                        <td className="px-3 py-2 text-sm text-white">{order.quantity}</td>
-                        <td className="px-3 py-2 text-sm text-zinc-400">
+                      <tr key={order._id} className="border-t border-border">
+                        <td className="px-3 py-2 text-sm text-primary">{order.orderId}</td>
+                        <td className="px-3 py-2 text-sm text-foreground">{order.productId?.name}</td>
+                        <td className="px-3 py-2 text-sm text-foreground">{order.quantity}</td>
+                        <td className="px-3 py-2 text-sm text-foreground-muted">
                           {new Date(order.createdAt).toLocaleDateString('en-IN', {
                             day: '2-digit',
                             month: 'short',

@@ -9,6 +9,7 @@ import adminRoutes from './routes/admin.routes';
 import notificationRoutes from './routes/notification.routes';
 import announcementRoutes from './routes/announcement.routes';
 import settingsRoutes from './routes/settings.routes';
+import shopifyRoutes from './routes/shopify.routes';
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/shopify', shopifyRoutes);
 
 app.use('*', (_req, res) => {
   res.status(404).json({ message: 'Route not found' });

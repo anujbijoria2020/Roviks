@@ -131,9 +131,9 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="animate-[fadeIn_0.2s_ease] text-white">
-      <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-      <p className="mt-1 text-zinc-400">Platform overview at a glance.</p>
+    <div className="animate-[fadeIn_0.2s_ease] text-foreground">
+      <h1 className="text-3xl font-bold text-foreground">Admin Dashboard</h1>
+      <p className="mt-1 text-foreground-muted">Platform overview at a glance.</p>
 
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         {isLoading ? (
@@ -161,15 +161,15 @@ const AdminDashboard = () => {
           ['delivered', stats?.deliveredOrders ?? 0, 'text-green-500'],
           ['cancelled', stats?.cancelledOrders ?? 0, 'text-red-500'],
         ].map(([label, count, color]) => (
-          <div key={String(label)} className="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-4 text-center">
-            <p className="text-xs uppercase tracking-wider text-zinc-500">{label}</p>
+          <div key={String(label)} className="rounded-xl border border-border bg-surface-secondary p-4 text-center">
+            <p className="text-xs uppercase tracking-wider text-foreground-muted">{label}</p>
             <p className={`mt-2 text-2xl font-bold ${color}`}>{count}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-6 rounded-xl border border-zinc-800 bg-[#1a1a1a] p-6">
-        <h2 className="mb-4 font-semibold text-white">Orders Last 30 Days</h2>
+      <div className="mt-6 rounded-xl border border-border bg-surface-secondary p-6">
+        <h2 className="mb-4 font-semibold text-foreground">Orders Last 30 Days</h2>
         <div className="h-[250px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={stats?.ordersLast30Days ?? []}>
@@ -184,90 +184,86 @@ const AdminDashboard = () => {
       </div>
 
       <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <section className="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-6">
-          <h3 className="mb-4 font-semibold text-white">Top Products</h3>
+        <section className="rounded-xl border border-border bg-surface-secondary p-6">
+          <h3 className="mb-4 font-semibold text-foreground">Top Products</h3>
           {topProducts.map((product) => {
             const image = product.media?.find((item) => item.type === 'image' && item.isPrimary)?.url
             return (
-              <div key={product._id} className="flex items-center justify-between border-b border-zinc-800 py-2 last:border-0">
+              <div key={product._id} className="flex items-center justify-between border-b border-border py-2 last:border-0">
                 <div className="flex items-center gap-2">
                   {image ? (
                     <img src={getImageUrl(image)} alt={product.name} className="h-8 w-8 rounded object-cover" onError={handleImageError} />
                   ) : (
-                    <div className="h-8 w-8 rounded bg-zinc-800" />
+                    <div className="h-8 w-8 rounded bg-surface-secondary" />
                   )}
-                  <p className="text-sm text-white">{product.name}</p>
+                  <p className="text-sm text-foreground">{product.name}</p>
                 </div>
-                <p className="font-medium text-orange-500">{product.orderCount ?? 0}</p>
+                <p className="font-medium text-primary">{product.orderCount ?? 0}</p>
               </div>
             )
           })}
         </section>
 
-        <section className="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-6">
-          <h3 className="mb-4 font-semibold text-white">Top Dropshippers</h3>
+        <section className="rounded-xl border border-border bg-surface-secondary p-6">
+          <h3 className="mb-4 font-semibold text-foreground">Top Dropshippers</h3>
           {topDropshippers.map((dropshipper) => {
             const initials = (dropshipper.fullName?.[0] ?? 'D').toUpperCase()
             return (
               <div
                 key={dropshipper._id}
-                className="flex items-center justify-between border-b border-zinc-800 py-2 last:border-0"
+                className="flex items-center justify-between border-b border-border py-2 last:border-0"
               >
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-orange-500/20 text-xs text-orange-500">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-xs text-primary">
                     {initials}
                   </div>
-                  <p className="text-sm text-white">{dropshipper.fullName}</p>
+                  <p className="text-sm text-foreground">{dropshipper.fullName}</p>
                 </div>
-                <p className="font-medium text-orange-500">{dropshipper.orderCount ?? 0}</p>
+                <p className="font-medium text-primary">{dropshipper.orderCount ?? 0}</p>
               </div>
             )
           })}
         </section>
       </div>
 
-      <section className="mt-6 rounded-xl border border-zinc-800 bg-[#1a1a1a] p-6">
-        <h3 className="font-semibold text-white">WhatsApp Settings</h3>
-        <p className="mt-2 text-sm text-zinc-400">Current number: {whatsappNumber || 'Not configured'}</p>
+      <section className="mt-6 rounded-xl border border-border bg-surface-secondary p-6">
+        <h3 className="font-semibold text-foreground">WhatsApp Settings</h3>
+        <p className="mt-2 text-sm text-foreground-muted">Current number: {whatsappNumber || 'Not configured'}</p>
         <div className="mt-4 flex flex-wrap gap-3">
           <input
             value={whatsappNumber}
             onChange={(event) => setWhatsappNumber(event.target.value)}
             placeholder="Enter WhatsApp number"
-            className="min-w-[260px] flex-1 rounded-lg border border-zinc-800 bg-[#111111] px-4 py-2.5 text-sm text-white focus:border-orange-500 focus:outline-none"
+            className="min-w-[260px] flex-1 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none"
           />
           <button
             type="button"
             disabled={isSavingWhatsapp}
             onClick={() => void handleSaveWhatsapp()}
-            className="rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+            className="rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-foreground disabled:opacity-60"
           >
             Save
           </button>
         </div>
       </section>
 
-      <section className="mt-6 rounded-xl border border-zinc-800 bg-[#1a1a1a] p-6">
-        <h3 className="font-semibold text-white">Launch Your Own Design PDF</h3>
-        <p className="mt-2 text-sm text-zinc-400">Current PDF: {designKitPdfUrl || 'Not configured'}</p>
+      <section className="mt-6 rounded-xl border border-border bg-surface-secondary p-6">
+        <h3 className="font-semibold text-foreground">Launch Your Own Design PDF</h3>
+        <p className="mt-2 text-sm text-foreground-muted">Current URL: {designKitPdfUrl || 'Not configured'}</p>
         <div className="mt-4 flex flex-wrap gap-3">
-          <label className="flex min-w-[260px] flex-1 cursor-pointer items-center justify-center rounded-xl border-2 border-dashed border-zinc-700 p-6 text-center transition hover:border-orange-500">
-            <Upload className="mr-2 h-5 w-5 text-zinc-500" />
-            <p className="text-zinc-500">{designKitPdfFile?.name ?? 'Click or drag PDF here'}</p>
-            <input
-              type="file"
-              accept=".pdf"
-              className="hidden"
-              onChange={(event) => setDesignKitPdfFile(event.target.files?.[0] ?? null)}
-            />
-          </label>
+          <input
+            value={designKitPdfUrl}
+            onChange={(event) => setDesignKitPdfUrl(event.target.value)}
+            placeholder="Enter PDF URL (https://...)"
+            className="min-w-[260px] flex-1 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm text-foreground focus:border-primary focus:outline-none"
+          />
           <button
             type="button"
-            disabled={isSavingDesignKitPdf || !designKitPdfFile}
+            disabled={isSavingDesignKitPdf}
             onClick={() => void handleSaveDesignKitPdf()}
-            className="rounded-lg bg-orange-500 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+            className="rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-foreground disabled:opacity-60"
           >
-            Upload
+            Save
           </button>
         </div>
         {designKitPdfUrl ? (
@@ -275,7 +271,7 @@ const AdminDashboard = () => {
             href={designKitPdfUrl}
             target="_blank"
             rel="noreferrer"
-            className="mt-3 inline-block text-sm font-medium text-[#F5A623] hover:underline"
+            className="mt-3 inline-block text-sm font-medium text-primary hover:underline"
           >
             Open current PDF
           </a>

@@ -8,6 +8,12 @@ export interface User {
   socialHandle?: string
   role: 'admin' | 'dropshipper'
   isApproved: boolean
+  shopify?: {
+    storeName: string
+    isConnected: boolean
+    status: 'pending' | 'active' | 'failed'
+    connectedAt?: string
+  }
   createdAt: string
 }
 

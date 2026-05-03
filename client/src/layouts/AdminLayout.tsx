@@ -18,11 +18,11 @@ const navItems = [
 
 const AdminLayout = () => {
   return (
-    <div className="bg-[#0d0d0d] text-white">
-      <aside className="fixed left-0 top-0 hidden h-screen w-56 flex-col bg-[#111111] lg:flex">
-        <div className="px-6 pb-4 pt-6 text-2xl font-black text-orange-500">ROVIKS</div>
+    <div className="bg-background text-foreground">
+      <aside className="fixed left-0 top-0 hidden h-screen w-56 flex-col bg-surface lg:flex">
+        <div className="px-6 pb-4 pt-6 text-2xl font-black text-primary">ROVIKS</div>
         <div className="px-6 pb-8">
-          <span className="rounded-full bg-orange-500 px-2 py-0.5 text-xs text-white">ADMIN</span>
+          <span className="rounded-full bg-primary px-2 py-0.5 text-xs text-foreground">ADMIN</span>
         </div>
 
         <nav className="flex-1 space-y-1 px-2">
@@ -34,8 +34,8 @@ const AdminLayout = () => {
               className={({ isActive }) =>
                 `mx-2 flex items-center gap-3 rounded-lg px-4 py-2.5 transition ${
                   isActive
-                    ? 'bg-[#1f1f1f] text-orange-500'
-                    : 'text-zinc-400 hover:bg-[#1a1a1a] hover:text-white'
+                    ? 'bg-[#1f1f1f] text-primary'
+                    : 'text-foreground-muted hover:bg-surface-secondary hover:text-foreground'
                 }`
               }
             >
@@ -46,11 +46,11 @@ const AdminLayout = () => {
         </nav>
       </aside>
 
-      <main className="min-h-screen bg-[#0d0d0d] p-4 pb-24 lg:ml-56 lg:p-8 lg:pb-8">
+      <main className="min-h-screen bg-background p-4 pb-24 lg:ml-56 lg:p-8 lg:pb-8">
         <Outlet />
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 border-t border-zinc-800 bg-[#111111] py-2 lg:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 border-t border-border bg-surface py-2 lg:hidden">
         <div className="flex items-center justify-around">
           {mobileItems.map(({ label, to, icon: Icon, end }) => (
             <NavLink
@@ -58,7 +58,7 @@ const AdminLayout = () => {
               to={to}
               end={end}
               className={({ isActive }) =>
-                `flex flex-col items-center gap-1 text-xs ${isActive ? 'text-orange-500' : 'text-zinc-400'}`
+                `flex flex-col items-center gap-1 text-xs ${isActive ? 'text-primary' : 'text-foreground-muted'}`
               }
             >
               <Icon className="h-4 w-4" />

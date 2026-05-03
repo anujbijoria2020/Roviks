@@ -1,4 +1,4 @@
-import { Download, Eye, Package, Rocket, Search, ShoppingBag } from 'lucide-react'
+import { Download, Eye, Package, Search, ShoppingBag } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useSearchParams } from 'react-router-dom'
@@ -92,105 +92,99 @@ const CatalogPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#0d0d0d] text-white">
+    <div className="min-h-screen bg-gray-100 dark:bg-background text-gray-900 dark:text-foreground">
       <PublicNavbar />
 
       <main className="mx-auto w-full max-w-7xl px-6 pb-16 pt-24">
-        <div className="animate-[fadeIn_0.2s_ease] text-white">
-          <h1 className="text-6xl font-black text-[#F5A623] uppercase">CATALOG</h1>
-          <p className="mt-2 text-zinc-400">Browse products, mockups, and designs — all in one place.</p>
+        <div className="animate-[fadeIn_0.2s_ease] text-foreground">
+          <h1 className="text-6xl font-black text-primary uppercase">CATALOG</h1>
+          <p className="mt-2 text-gray-600 dark:text-foreground-muted">Browse products, mockups, and designs — all in one place.</p>
 
-          <div className="mt-8 flex gap-3">
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('product')
-                setSelectedSize('all')
-              }}
-              className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition ${
-                activeTab === 'product'
-                  ? 'bg-[#F5A623] text-black'
-                  : 'bg-transparent border border-zinc-700 text-zinc-400 hover:border-[#F5A623] hover:text-[#F5A623]'
-              }`}
-            >
-              Products
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('mockup')
-                setSelectedSize('all')
-              }}
-              className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition ${
-                activeTab === 'mockup'
-                  ? 'bg-[#F5A623] text-black'
-                  : 'bg-transparent border border-zinc-700 text-zinc-400 hover:border-[#F5A623] hover:text-[#F5A623]'
-              }`}
-            >
-              Mockups
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('design')
-                setSelectedSize('all')
-              }}
-              className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition ${
-                activeTab === 'design'
-                  ? 'bg-[#F5A623] text-black'
-                  : 'bg-transparent border border-zinc-700 text-zinc-400 hover:border-[#F5A623] hover:text-[#F5A623]'
-              }`}
-            >
-              Designs
-            </button>
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('product')
+                  setSelectedSize('all')
+                }}
+                className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition ${
+                  activeTab === 'product'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-transparent border border-gray-300 dark:border-border text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-primary'
+                }`}
+              >
+                Products
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('mockup')
+                  setSelectedSize('all')
+                }}
+                className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition ${
+                  activeTab === 'mockup'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-transparent border border-gray-300 dark:border-border text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-primary'
+                }`}
+              >
+                Mockups
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setActiveTab('design')
+                  setSelectedSize('all')
+                }}
+                className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition ${
+                  activeTab === 'design'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-transparent border border-gray-300 dark:border-border text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-primary'
+                }`}
+              >
+                Designs
+              </button>
+            </div>
+
+            {designKitPdfUrl && (
+              <div className="flex items-center gap-3 rounded-lg border border-gray-300 dark:border-border bg-white dark:bg-surface-secondary px-4 py-2">
+                <span className="text-sm text-gray-600 dark:text-foreground-muted">Launch Your Own Design</span>
+                <a
+                  href={designKitPdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg border border-gray-300 dark:border-border bg-gray-100 dark:bg-background px-4 py-2 text-sm text-gray-700 dark:text-foreground-secondary transition hover:border-primary hover:text-orange-600 dark:hover:text-foreground"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>Download Kit</span>
+                </a>
+              </div>
+            )}
           </div>
 
           <div className="mt-6 max-w-xl">
             <div className="relative w-full">
-              <Search className="absolute left-4 top-3.5 h-4 w-4 text-zinc-500" />
+              <Search className="absolute left-4 top-3.5 h-4 w-4 text-foreground-muted" />
               <input
                 type="text"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder={`Search ${activeTab}s...`}
-                className="w-full rounded-xl border border-zinc-800 bg-[#1a1a1a] py-3 pl-10 pr-4 text-white placeholder-zinc-500 transition focus:border-orange-500 focus:outline-none"
+                className="w-full rounded-xl border border-gray-300 dark:border-border bg-white dark:bg-surface-secondary py-3 pl-10 pr-4 text-gray-900 dark:text-foreground placeholder-gray-500 dark:placeholder-zinc-500 transition focus:border-primary focus:outline-none"
               />
             </div>
           </div>
 
-          {designKitPdfUrl && (
-            <div className="mt-6 rounded-xl border border-[#F5A623]/30 bg-[#F5A623]/10 p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Rocket className="h-6 w-6 text-[#F5A623]" />
-                  <div>
-                    <h3 className="font-bold text-white">Launch Your Own Design</h3>
-                    <p className="mt-1 text-sm text-zinc-400">Download our complete design kit to get started</p>
-                  </div>
-                </div>
-                <a
-                  href={designKitPdfUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-2 rounded-lg bg-[#F5A623] px-4 py-2.5 text-sm font-bold text-black transition hover:opacity-90"
-                >
-                  <Download className="h-4 w-4" />
-                  Download PDF
-                </a>
-              </div>
-            </div>
-          )}
-
           <div className="mt-4">
-            <p className="text-sm text-zinc-400">Category:</p>
+            <p className="text-sm text-gray-600 dark:text-foreground-muted">Category:</p>
             <div className="mt-2 flex w-full gap-2 overflow-x-auto whitespace-nowrap pb-2">
               <button
                 type="button"
                 onClick={() => setSelectedCategory('all')}
                 className={`cursor-pointer rounded-full px-4 py-2 text-sm transition ${
                   selectedCategory === 'all'
-                    ? 'bg-orange-500 font-medium text-white'
-                    : 'border border-zinc-700 bg-[#1a1a1a] text-zinc-400 hover:border-orange-500 hover:text-white'
+                    ? 'bg-primary font-medium text-foreground'
+                    : 'border border-gray-300 dark:border-border bg-white dark:bg-surface-secondary text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-foreground'
                 }`}
               >
                 All
@@ -202,8 +196,8 @@ const CatalogPage = () => {
                   onClick={() => setSelectedCategory(category.slug)}
                   className={`cursor-pointer rounded-full px-4 py-2 text-sm transition ${
                     selectedCategory === category.slug
-                      ? 'bg-orange-500 font-medium text-white'
-                      : 'border border-zinc-700 bg-[#1a1a1a] text-zinc-400 hover:border-orange-500 hover:text-white'
+                      ? 'bg-primary font-medium text-foreground'
+                      : 'border border-border bg-surface-secondary text-foreground-muted hover:border-primary hover:text-foreground'
                   }`}
                 >
                   {category.name}
@@ -214,7 +208,7 @@ const CatalogPage = () => {
 
           {activeTab === 'product' && (
             <div className="mt-3">
-              <p className="text-sm text-zinc-400">Size:</p>
+              <p className="text-sm text-gray-600 dark:text-foreground-muted">Size:</p>
               <div className="mt-2 flex w-full gap-2 overflow-x-auto whitespace-nowrap pb-2">
                 {['All', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'].map((size) => (
                   <button
@@ -223,8 +217,8 @@ const CatalogPage = () => {
                     onClick={() => setSelectedSize(size.toLowerCase())}
                     className={`cursor-pointer rounded-full px-4 py-2 text-sm transition ${
                       selectedSize === size.toLowerCase()
-                        ? 'bg-orange-500 font-medium text-white'
-                        : 'border border-zinc-700 bg-[#1a1a1a] text-zinc-400 hover:border-orange-500 hover:text-white'
+                        ? 'bg-primary font-medium text-foreground'
+                        : 'border border-gray-300 dark:border-border bg-white dark:bg-surface-secondary text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-foreground'
                     }`}
                   >
                     {size}
@@ -237,17 +231,17 @@ const CatalogPage = () => {
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {isLoading ? (
               skeletonCards.map((_, index) => (
-                <div key={index} className="animate-pulse rounded-xl bg-[#1a1a1a] p-4">
-                  <div className="aspect-square rounded-lg bg-zinc-800" />
-                  <div className="mt-4 h-3 w-20 rounded bg-zinc-800" />
-                  <div className="mt-2 h-4 w-40 rounded bg-zinc-800" />
-                  <div className="mt-3 h-4 w-28 rounded bg-zinc-800" />
+                <div key={index} className="animate-pulse rounded-xl bg-white dark:bg-surface-secondary p-4">
+                  <div className="aspect-square rounded-lg bg-gray-200 dark:bg-surface-secondary" />
+                  <div className="mt-4 h-3 w-20 rounded bg-gray-200 dark:bg-surface-secondary" />
+                  <div className="mt-2 h-4 w-40 rounded bg-gray-200 dark:bg-surface-secondary" />
+                  <div className="mt-3 h-4 w-28 rounded bg-gray-200 dark:bg-surface-secondary" />
                 </div>
               ))
             ) : products.length === 0 ? (
               <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
-                <Package className="h-16 w-16 text-zinc-600" />
-                <p className="mt-4 text-lg text-zinc-500">No products found</p>
+                <Package className="h-16 w-16 text-gray-400 dark:text-zinc-600" />
+                <p className="mt-4 text-lg text-gray-500 dark:text-foreground-muted">No products found</p>
               </div>
             ) : (
               products.map((product) => {
@@ -262,13 +256,13 @@ const CatalogPage = () => {
                   <article
                     key={product._id}
                     onClick={() => navigate(`/catalog/${product._id}`)}
-                    className="group cursor-pointer overflow-hidden rounded-xl border border-zinc-800 bg-[#1a1a1a] transition hover:border-zinc-600"
+                    className="group cursor-pointer overflow-hidden rounded-xl border border-gray-300 dark:border-border bg-white dark:bg-surface-secondary transition hover:border-gray-400 dark:hover:border-zinc-600"
                   >
-                    <div className="relative aspect-square overflow-hidden bg-[#111111]">
+                    <div className="relative aspect-square overflow-hidden bg-gray-200 dark:bg-surface">
                       {isDownloadable && (
-                        <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full bg-[#F5A623]/20 px-2 py-1">
-                          <Download className="h-3 w-3 text-[#F5A623]" />
-                          <span className="text-xs font-medium text-[#F5A623]">Free Download</span>
+                        <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full bg-primary/20 px-2 py-1">
+                          <Download className="h-3 w-3 text-primary" />
+                          <span className="text-xs font-medium text-primary">Free Download</span>
                         </div>
                       )}
 
@@ -300,9 +294,9 @@ const CatalogPage = () => {
                             event.stopPropagation()
                             navigate(`/catalog/${product._id}`)
                           }}
-                          className="rounded-full bg-white/10 p-3 transition hover:bg-orange-500"
+                          className="rounded-full bg-white/10 p-3 transition hover:bg-primary"
                         >
-                          <Eye className="h-5 w-5 text-white" />
+                          <Eye className="h-5 w-5 text-foreground" />
                         </button>
                         {isProduct && (
                           <button
@@ -318,7 +312,7 @@ const CatalogPage = () => {
                             }}
                             className="rounded-full bg-white/10 p-3 transition hover:bg-green-500"
                           >
-                            <ShoppingBag className="h-5 w-5 text-white" />
+                            <ShoppingBag className="h-5 w-5 text-foreground" />
                           </button>
                         )}
                         {isDownloadable && (
@@ -340,7 +334,7 @@ const CatalogPage = () => {
                             }}
                             className="rounded-full bg-white/10 p-3 transition hover:bg-green-500"
                           >
-                            <Download className="h-5 w-5 text-white" />
+                            <Download className="h-5 w-5 text-foreground" />
                           </button>
                         )}
                       </div>
@@ -353,18 +347,18 @@ const CatalogPage = () => {
                     </div>
 
                     <div className="p-4">
-                      <p className="text-xs font-medium uppercase tracking-wider text-orange-500">
+                      <p className="text-xs font-medium uppercase tracking-wider text-primary">
                         {product.category?.name}
                       </p>
-                      <h3 className="mt-1 line-clamp-2 text-sm font-bold uppercase leading-tight text-white">
+                      <h3 className="mt-1 line-clamp-2 text-sm font-bold uppercase leading-tight text-gray-900 dark:text-foreground">
                         {product.name}
                       </h3>
 
                       {isProduct && (
                         <>
                           <div className="mt-3 flex items-center gap-3">
-                            <p className="text-lg font-bold text-white">₹{product.dropshipperPrice}</p>
-                            <p className="text-sm text-zinc-500 line-through">₹{product.mrp}</p>
+                            <p className="text-lg font-bold text-gray-900 dark:text-foreground">₹{product.dropshipperPrice}</p>
+                            <p className="text-sm text-gray-500 dark:text-foreground-muted line-through">₹{product.mrp}</p>
                           </div>
                           <p className="mt-1 text-xs text-green-400">Earn ₹{product.profitMargin}/unit</p>
                         </>

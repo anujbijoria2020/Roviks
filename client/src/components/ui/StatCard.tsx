@@ -8,15 +8,15 @@ interface StatCardProps {
 }
 
 const StatCard = ({ icon: Icon, label, value, color = 'orange' }: StatCardProps) => {
-  const iconClasses = color === 'orange' ? 'bg-orange-500/10 text-orange-500' : 'bg-zinc-700 text-white'
+  const iconClasses = color === 'orange' ? 'bg-primary/10 text-primary' : 'bg-zinc-700 text-foreground'
 
   return (
-    <div className="rounded-xl border border-zinc-800 bg-[#1a1a1a] p-6">
+    <div className="rounded-xl border border-border bg-surface-secondary p-6">
       <div className={`inline-flex rounded-lg p-2 ${iconClasses}`}>
         <Icon className="h-5 w-5" />
       </div>
-      <p className="mt-4 text-3xl font-bold text-white">{value}</p>
-      <p className="mt-1 text-sm text-zinc-400">{label}</p>
+      <p className="mt-4 text-3xl font-bold text-foreground">{value}</p>
+      <p className="mt-1 text-sm text-foreground-muted">{label}</p>
     </div>
   )
 }

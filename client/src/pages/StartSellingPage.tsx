@@ -9,7 +9,7 @@ const StartSellingPage = () => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] text-white">
+    <div className="min-h-screen bg-background text-foreground">
       <PublicNavbar />
       <main className="pt-16">
         <StartSellingSection withTopPadding />

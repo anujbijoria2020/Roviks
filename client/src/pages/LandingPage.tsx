@@ -81,21 +81,21 @@ const LandingPage = () => {
   )
 
   return (
-    <div className="min-h-screen animate-[fadeIn_0.2s_ease] bg-[#0D0D0D] text-white">
+    <div className="min-h-screen animate-[fadeIn_0.2s_ease] bg-background text-foreground">
       <PublicNavbar />
 
       <main>
-        <section className="relative flex min-h-screen items-center justify-center bg-[#111111] px-8 pb-20 pt-24 text-center">
+        <section className="relative flex min-h-screen items-center justify-center bg-surface px-8 pb-20 pt-24 text-center">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(245,166,35,0.05)_0%,transparent_60%)]" />
           <div>
             <h1 className="text-4xl font-black uppercase leading-none sm:text-6xl lg:text-7xl">
-              <span className="block text-white">Start Your</span>
-              <span className="block text-white">Clothing Business</span>
-              <span className="block text-[#F5A623]">Without</span>
-              <span className="block text-[#F5A623]">Inventory</span>
+              <span className="block text-foreground">Start Your</span>
+              <span className="block text-foreground">Clothing Business</span>
+              <span className="block text-primary">Without</span>
+              <span className="block text-primary">Inventory</span>
             </h1>
 
-            <p className="mx-auto mt-6 max-w-xl text-center text-lg text-zinc-400">
+            <p className="mx-auto mt-6 max-w-xl text-center text-lg text-foreground-muted">
               Download product images, videos, mockups, and designs to start selling fashion online.
               No inventory needed.
             </p>
@@ -104,7 +104,7 @@ const LandingPage = () => {
               <button
                 type="button"
                 onClick={() => navigate('/start-selling')}
-                className="rounded-xl bg-[#F5A623] px-8 py-4 font-bold text-black transition hover:opacity-90"
+                className="rounded-xl bg-primary px-8 py-4 font-bold text-primary-foreground transition hover:opacity-90"
               >
                 Start Selling →
               </button>
@@ -112,7 +112,7 @@ const LandingPage = () => {
               <button
                 type="button"
                 onClick={() => navigate('/contact')}
-                className="rounded-xl border border-zinc-600 px-8 py-4 text-white transition hover:border-[#F5A623] hover:text-[#F5A623]"
+                className="rounded-xl border border-zinc-600 px-8 py-4 text-foreground transition hover:border-primary hover:text-primary"
               >
                 Contact Us
               </button>
@@ -124,9 +124,9 @@ const LandingPage = () => {
           </div>
         </section>
 
-        <section className="bg-[#0D0D0D] px-8 py-20">
+        <section className="bg-background px-8 py-20">
           <div className="mx-auto max-w-6xl">
-            <div className="mb-16 overflow-hidden rounded-3xl border border-zinc-800 bg-[#141414]">
+            <div className="mb-16 overflow-hidden rounded-3xl border border-border bg-surface-secondary">
               <div className="relative grid grid-cols-1 gap-0 md:grid-cols-2">
                 <div
                   className="min-h-[260px] bg-cover bg-center"
@@ -136,16 +136,16 @@ const LandingPage = () => {
                 </div>
 
                 <div className="flex flex-col justify-center p-8 md:p-10">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#F5A623]">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
                     Dropshipper Resource
                   </p>
-                  <h2 className="mt-3 text-3xl font-black uppercase leading-none text-white sm:text-4xl">
+                  <h2 className="mt-3 text-3xl font-black uppercase leading-none text-foreground sm:text-4xl">
                     Launch Your Own Design
                   </h2>
-                  <p className="mt-4 text-sm leading-relaxed text-zinc-300">
+                  <p className="mt-4 text-sm leading-relaxed text-foreground-secondary">
                     Access the full design kit PDF with products, color options, size details, and ready-to-sell references in one place.
                   </p>
-                  <ul className="mt-4 space-y-2 text-sm text-zinc-200">
+                  <ul className="mt-4 space-y-2 text-sm text-foreground-secondary">
                     <li>Complete product + color combinations</li>
                     <li>Size and variant overview</li>
                     <li>Quick reference for selling flow</li>
@@ -156,14 +156,14 @@ const LandingPage = () => {
                       target="_blank"
                       rel="noreferrer"
                       aria-disabled={!designKitPdfUrl}
-                      className="rounded-full bg-[#F5A623] px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-black transition hover:opacity-90 aria-disabled:pointer-events-none aria-disabled:opacity-50"
+                      className="rounded-full bg-primary px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-primary-foreground transition hover:opacity-90 aria-disabled:pointer-events-none aria-disabled:opacity-50"
                     >
                       Open Design Kit PDF
                     </a>
                     <button
                       type="button"
                       onClick={() => navigate('/contact')}
-                      className="rounded-full border border-zinc-600 px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-zinc-200 transition hover:border-[#F5A623] hover:text-[#F5A623]"
+                      className="rounded-full border border-zinc-600 px-5 py-2.5 text-xs font-semibold uppercase tracking-wide text-foreground-secondary transition hover:border-primary hover:text-primary"
                     >
                       Need help?
                     </button>
@@ -174,9 +174,9 @@ const LandingPage = () => {
 
             <div className="mb-16 text-center">
               <h2 className="text-4xl font-black uppercase leading-none sm:text-6xl">
-                <span className="text-white">Browse By</span> <span className="text-[#F5A623]">Content Type</span>
+                <span className="text-foreground">Browse By</span> <span className="text-primary">Content Type</span>
               </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-lg text-zinc-400">
+              <p className="mx-auto mt-4 max-w-2xl text-lg text-foreground-muted">
                 Products, mockups, and designs are shown as separate cards on the landing page.
               </p>
             </div>
@@ -187,7 +187,7 @@ const LandingPage = () => {
                 return (
                   <article
                     key={item.slug}
-                    className="group relative min-h-[22rem] overflow-hidden rounded-3xl border border-zinc-700/70 bg-[#111111] transition duration-300 hover:-translate-y-1 hover:border-[#F5A623]/60"
+                    className="group relative min-h-[22rem] overflow-hidden rounded-3xl border border-border/70 bg-surface transition duration-300 hover:-translate-y-1 hover:border-primary/60"
                   >
                     <img
                       src={CARD_BG_BY_SLUG[item.slug] ?? CARD_BG_BY_SLUG.products}
@@ -199,21 +199,21 @@ const LandingPage = () => {
 
                     <div className="relative flex h-full flex-col justify-between p-6">
                       <div className="flex items-start justify-between gap-3">
-                        <span className="rounded-full border border-white/30 bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white/90 backdrop-blur-sm">
+                        <span className="rounded-full border border-white/30 bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-foreground/90 backdrop-blur-sm">
                           {item.title}
                         </span>
-                        <div className="inline-flex rounded-xl border border-white/25 bg-black/30 p-3 text-[#F5A623] backdrop-blur-sm">
+                        <div className="inline-flex rounded-xl border border-white/25 bg-black/30 p-3 text-primary backdrop-blur-sm">
                           <Icon className="h-6 w-6" />
                         </div>
                       </div>
 
                       <div>
-                        <h3 className="text-3xl font-black uppercase leading-none text-white">{item.title}</h3>
-                        <p className="mt-3 max-w-[26ch] text-sm leading-relaxed text-zinc-200">{item.description}</p>
+                        <h3 className="text-3xl font-black uppercase leading-none text-foreground">{item.title}</h3>
+                        <p className="mt-3 max-w-[26ch] text-sm leading-relaxed text-foreground-secondary">{item.description}</p>
                         <button
                           type="button"
                           onClick={() => navigate(`/catalog?category=${item.slug}`)}
-                          className="mt-5 rounded-full border border-[#F5A623]/70 bg-black/40 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#F5A623] transition hover:bg-[#F5A623] hover:text-black"
+                          className="mt-5 rounded-full border border-primary/70 bg-black/40 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-primary transition hover:bg-primary hover:text-primary-foreground"
                         >
                           Browse {item.title}
                         </button>
@@ -226,11 +226,11 @@ const LandingPage = () => {
           </div>
         </section>
 
-        <section className="bg-[#111111] px-8 py-20">
+        <section className="bg-surface px-8 py-20">
           <div className="mx-auto max-w-5xl">
             <div className="mb-16 text-center">
               <h2 className="text-4xl font-black uppercase leading-none md:text-5xl">
-                <span className="text-white">How It</span> <span className="text-[#F5A623]">Works</span>
+                <span className="text-foreground">How It</span> <span className="text-primary">Works</span>
               </h2>
             </div>
 
@@ -241,46 +241,46 @@ const LandingPage = () => {
                   title: 'Browse Content',
                   description:
                     'Explore our curated collection of product images, videos, mockups, and designs.',
-                  icon: <ShoppingBag className="h-16 w-16 rounded-2xl bg-[#F5A623]/20 p-4 text-[#F5A623]" />,
+                  icon: <ShoppingBag className="h-16 w-16 rounded-2xl bg-primary/20 p-4 text-primary" />,
                 },
                 {
                   step: '02',
                   title: 'Download Files',
                   description:
                     'Download high-quality ready-to-sell content instantly. No watermarks.',
-                  icon: <Download className="h-16 w-16 rounded-2xl bg-[#F5A623]/20 p-4 text-[#F5A623]" />,
+                  icon: <Download className="h-16 w-16 rounded-2xl bg-primary/20 p-4 text-primary" />,
                 },
                 {
                   step: '03',
                   title: 'Start Selling',
                   description:
                     'Use the content to sell fashion on Instagram, WhatsApp, or any marketplace.',
-                  icon: <Rocket className="h-16 w-16 rounded-2xl bg-[#F5A623]/20 p-4 text-[#F5A623]" />,
+                  icon: <Rocket className="h-16 w-16 rounded-2xl bg-primary/20 p-4 text-primary" />,
                 },
               ].map((item) => (
                 <article
                   key={item.step}
-                  className="relative rounded-2xl border border-zinc-800 bg-[#1a1a1a] p-10 text-center transition hover:border-zinc-600"
+                  className="relative rounded-2xl border border-border bg-surface-secondary p-10 text-center transition hover:border-zinc-600"
                 >
-                  <p className="absolute right-6 top-6 text-6xl font-black text-[#F5A623]/30">{item.step}</p>
+                  <p className="absolute right-6 top-6 text-6xl font-black text-primary/30">{item.step}</p>
                   <div className="mt-8 flex justify-center">{item.icon}</div>
-                  <h3 className="mt-4 text-xl font-black uppercase text-white">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{item.description}</p>
+                  <h3 className="mt-4 text-xl font-black uppercase text-foreground">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-foreground-muted">{item.description}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="bg-[#0D0D0D] px-8 py-20">
+        <section className="bg-background px-8 py-20">
           <div className="mx-auto mb-10 flex w-full max-w-7xl flex-wrap items-end justify-between gap-4">
             <h2 className="text-4xl font-black uppercase leading-none md:text-5xl">
-              <span className="text-white">Featured</span> <span className="text-[#F5A623]">Products</span>
+              <span className="text-foreground">Featured</span> <span className="text-primary">Products</span>
             </h2>
             <button
               type="button"
               onClick={() => navigate('/catalog')}
-              className="text-sm font-medium text-[#F5A623] transition hover:underline"
+              className="text-sm font-medium text-primary transition hover:underline"
             >
               View All →
             </button>
@@ -289,10 +289,10 @@ const LandingPage = () => {
           <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {isLoadingFeatured
               ? new Array(3).fill(null).map((_, index) => (
-                  <div key={index} className="animate-pulse overflow-hidden rounded-2xl bg-[#111111]">
+                  <div key={index} className="animate-pulse overflow-hidden rounded-2xl bg-surface">
                     <div className="aspect-[4/5] bg-zinc-900" />
                     <div className="p-4">
-                      <div className="h-5 w-2/3 rounded bg-zinc-800" />
+                      <div className="h-5 w-2/3 rounded bg-surface-secondary" />
                     </div>
                   </div>
                 ))
@@ -309,7 +309,7 @@ const LandingPage = () => {
                     <article
                       key={product._id}
                       onClick={() => navigate(`/catalog/${product._id}`)}
-                      className="cursor-pointer overflow-hidden rounded-2xl bg-[#111111] transition duration-300 hover:scale-[1.02]"
+                      className="cursor-pointer overflow-hidden rounded-2xl bg-surface transition duration-300 hover:scale-[1.02]"
                     >
                       <div className="relative aspect-[4/5] bg-zinc-900">
                         {hasValidImage ? (
@@ -330,7 +330,7 @@ const LandingPage = () => {
                         )}
                       </div>
                       <div className="p-4">
-                        <h3 className="text-lg font-black uppercase leading-tight tracking-wide text-white">
+                        <h3 className="text-lg font-black uppercase leading-tight tracking-wide text-foreground">
                           {product.name}
                         </h3>
                       </div>
@@ -340,11 +340,11 @@ const LandingPage = () => {
           </div>
         </section>
 
-        <section className="bg-[#111111] px-8 py-20">
+        <section className="bg-surface px-8 py-20">
           <div className="mx-auto max-w-5xl">
             <div className="mb-16 text-center">
               <h2 className="text-4xl font-black uppercase leading-none md:text-5xl">
-                <span className="text-white">Why</span> <span className="text-[#F5A623]">Roviks?</span>
+                <span className="text-foreground">Why</span> <span className="text-primary">Roviks?</span>
               </h2>
             </div>
 
@@ -357,17 +357,17 @@ const LandingPage = () => {
               ].map((item) => (
                 <article
                   key={item.label}
-                  className="rounded-2xl border border-zinc-800 bg-[#1a1a1a] p-8 text-center"
+                  className="rounded-2xl border border-border bg-surface-secondary p-8 text-center"
                 >
-                  <p className="text-5xl font-black text-[#F5A623]">{item.value}</p>
-                  <p className="mt-2 text-sm uppercase tracking-wider text-zinc-400">{item.label}</p>
+                  <p className="text-5xl font-black text-primary">{item.value}</p>
+                  <p className="mt-2 text-sm uppercase tracking-wider text-foreground-muted">{item.label}</p>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="bg-[#F5A623] px-8 py-20 text-center">
+        <section className="bg-primary px-8 py-20 text-center">
           <h2 className="text-3xl font-black uppercase leading-none text-black sm:text-5xl">
             <span className="block">Ready To Start</span>
             <span className="block">Your Business?</span>
@@ -380,7 +380,7 @@ const LandingPage = () => {
           <button
             type="button"
             onClick={() => navigate('/register')}
-            className="mt-8 rounded-xl bg-black px-10 py-4 font-bold text-white transition hover:bg-zinc-900"
+            className="mt-8 rounded-xl bg-black px-10 py-4 font-bold text-foreground transition hover:bg-zinc-900"
           >
             Get Started Free →
           </button>

@@ -181,16 +181,16 @@ const AdminProducts = () => {
   }
 
   return (
-    <div className="animate-[fadeIn_0.2s_ease] text-white">
+    <div className="animate-[fadeIn_0.2s_ease] text-foreground">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <h1 className="text-3xl font-bold">Products</h1>
-          <span className="rounded-full bg-zinc-800 px-3 py-1 text-xs text-zinc-300">{products.length}</span>
+          <span className="rounded-full bg-surface-secondary px-3 py-1 text-xs text-foreground-secondary">{products.length}</span>
         </div>
         <button
           type="button"
           onClick={openAddModal}
-          className="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-white"
+          className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-foreground"
         >
           <Plus className="h-4 w-4" />
           Add Product
@@ -203,7 +203,7 @@ const AdminProducts = () => {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Search products..."
-            className="w-full rounded-lg border border-zinc-800 bg-[#1a1a1a] px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-orange-500 focus:outline-none"
+            className="w-full rounded-lg border border-border bg-surface-secondary px-4 py-2.5 text-sm text-foreground placeholder-zinc-500 focus:border-primary focus:outline-none"
           />
         </div>
         <div className="flex gap-2">
@@ -214,8 +214,8 @@ const AdminProducts = () => {
               onClick={() => setFilterType(type)}
               className={`rounded-full px-4 py-2 text-sm capitalize transition ${
                 filterType === type
-                  ? 'bg-orange-500 text-white font-medium'
-                  : 'border border-zinc-700 bg-[#1a1a1a] text-zinc-400 hover:border-orange-500 hover:text-white'
+                  ? 'bg-primary text-foreground font-medium'
+                  : 'border border-border bg-surface-secondary text-foreground-muted hover:border-primary hover:text-foreground'
               }`}
             >
               {type === 'all' ? 'All' : type}s
@@ -224,7 +224,7 @@ const AdminProducts = () => {
         </div>
       </div>
 
-      <div className="mt-4 overflow-hidden rounded-xl border border-zinc-800 bg-[#1a1a1a]">
+      <div className="mt-4 overflow-hidden rounded-xl border border-border bg-surface-secondary">
         {isLoading ? (
           <div className="space-y-3 p-4">
             <LoadingSkeleton className="h-12" />
@@ -234,7 +234,7 @@ const AdminProducts = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="min-w-full">
-              <thead className="bg-[#111111] text-left text-xs uppercase text-zinc-500">
+              <thead className="bg-surface text-left text-xs uppercase text-foreground-muted">
                 <tr>
                   <th className="px-4 py-3">Type</th>
                   <th className="px-4 py-3">Product</th>
@@ -258,7 +258,7 @@ const AdminProducts = () => {
                   const typeInfo = typeConfig[product.contentType || 'product']
                   const TypeIcon = typeInfo.icon
                   return (
-                    <tr key={product._id} className="border-t border-zinc-800">
+                    <tr key={product._id} className="border-t border-border">
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           <TypeIcon className={`h-4 w-4 ${typeInfo.color}`} />
@@ -270,14 +270,14 @@ const AdminProducts = () => {
                           {image ? (
                             <img src={getImageUrl(image)} alt={product.name} className="h-10 w-10 rounded-lg object-cover" onError={handleImageError} />
                           ) : (
-                            <div className="h-10 w-10 rounded-lg bg-zinc-800" />
+                            <div className="h-10 w-10 rounded-lg bg-surface-secondary" />
                           )}
-                          <p className="text-sm text-white">{product.name}</p>
+                          <p className="text-sm text-foreground">{product.name}</p>
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-sm text-zinc-400">{product.category?.name}</td>
-                      <td className="px-4 py-3 text-sm text-zinc-400">₹{product.mrp}</td>
-                      <td className="px-4 py-3 font-medium text-white">₹{product.dropshipperPrice}</td>
+                      <td className="px-4 py-3 text-sm text-foreground-muted">{product.category?.name}</td>
+                      <td className="px-4 py-3 text-sm text-foreground-muted">₹{product.mrp}</td>
+                      <td className="px-4 py-3 font-medium text-foreground">₹{product.dropshipperPrice}</td>
                       <td className="px-4 py-3 text-sm text-green-400">₹{product.profitMargin}</td>
                       <td className="px-4 py-3">
                         <Badge status={product.stockStatus} />
@@ -286,7 +286,7 @@ const AdminProducts = () => {
                         <button
                           type="button"
                           onClick={() => void handleToggle(product._id)}
-                          className={`relative h-6 w-10 rounded-full ${product.isActive ? 'bg-orange-500' : 'bg-zinc-700'}`}
+                          className={`relative h-6 w-10 rounded-full ${product.isActive ? 'bg-primary' : 'bg-zinc-700'}`}
                         >
                           <span
                             className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition ${
@@ -300,14 +300,14 @@ const AdminProducts = () => {
                           <button
                             type="button"
                             onClick={() => openEditModal(product)}
-                            className="text-zinc-400 transition hover:text-orange-500"
+                            className="text-foreground-muted transition hover:text-primary"
                           >
                             <Pencil className="h-4 w-4" />
                           </button>
                           <button
                             type="button"
                             onClick={() => setDeleteConfirmId(product._id)}
-                            className="text-zinc-400 transition hover:text-red-500"
+                            className="text-foreground-muted transition hover:text-red-500"
                           >
                             <Trash className="h-4 w-4" />
                           </button>
@@ -324,18 +324,18 @@ const AdminProducts = () => {
 
       {deleteConfirmId ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-sm rounded-2xl bg-[#1a1a1a] p-6">
-            <h3 className="text-lg font-bold text-white">Delete Product?</h3>
-            <p className="mt-2 text-sm text-zinc-400">This action cannot be undone.</p>
+          <div className="w-full max-w-sm rounded-2xl bg-surface-secondary p-6">
+            <h3 className="text-lg font-bold text-foreground">Delete Product?</h3>
+            <p className="mt-2 text-sm text-foreground-muted">This action cannot be undone.</p>
             <div className="mt-5 flex justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setDeleteConfirmId(null)}
-                className="rounded-lg border border-zinc-700 px-4 py-2 text-zinc-300"
+                className="rounded-lg border border-border px-4 py-2 text-foreground-secondary"
               >
                 Cancel
               </button>
-              <button type="button" onClick={() => void handleDelete()} className="rounded-lg bg-red-500 px-4 py-2 text-white">
+              <button type="button" onClick={() => void handleDelete()} className="rounded-lg bg-red-500 px-4 py-2 text-foreground">
                 Delete
               </button>
             </div>
@@ -345,19 +345,19 @@ const AdminProducts = () => {
 
       {isModalOpen ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
-          <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-[#1a1a1a] p-6">
+          <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-surface-secondary p-6">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="absolute right-4 top-4 text-zinc-400 hover:text-white"
+              className="absolute right-4 top-4 text-foreground-muted hover:text-foreground"
             >
               <X className="h-5 w-5" />
             </button>
-            <h2 className="text-xl font-bold text-white">{editingProduct ? 'Edit Product' : 'Add Product'}</h2>
+            <h2 className="text-xl font-bold text-foreground">{editingProduct ? 'Edit Product' : 'Add Product'}</h2>
 
             <form onSubmit={handleSubmit} className="mt-4 space-y-4">
               <div>
-                <p className="mb-3 text-sm text-zinc-400">Content Type</p>
+                <p className="mb-3 text-sm text-foreground-muted">Content Type</p>
                 <div className="flex gap-3">
                   {[
                     { value: 'product' as const, icon: ShoppingBag, label: 'Product', desc: 'Has price & ordering' },
@@ -370,8 +370,8 @@ const AdminProducts = () => {
                         key={type.value}
                         className={`flex flex-1 cursor-pointer items-center gap-2 rounded-xl border p-3 transition ${
                           form.contentType === type.value
-                            ? 'border-[#F5A623] bg-[#F5A623]/10 text-[#F5A623]'
-                            : 'border-zinc-800 text-zinc-400 hover:border-zinc-600'
+                            ? 'border-primary bg-primary/10 text-primary'
+                            : 'border-border text-foreground-muted hover:border-zinc-600'
                         }`}
                       >
                         <input
@@ -405,7 +405,7 @@ const AdminProducts = () => {
                   placeholder="Product Name"
                   value={form.name}
                   onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
-                  className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                  className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                 />
                 <div>
                   <select
@@ -419,7 +419,7 @@ const AdminProducts = () => {
                         setVideo(null)
                       }
                     }}
-                    className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
                     <option value="">Select category</option>
                     {categories.map((category) => (
@@ -439,7 +439,7 @@ const AdminProducts = () => {
                     placeholder="MRP"
                     value={form.mrp}
                     onChange={(event) => setForm((prev) => ({ ...prev, mrp: event.target.value }))}
-                    className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                   />
                   <input
                     required
@@ -447,7 +447,7 @@ const AdminProducts = () => {
                     placeholder="Your Price"
                     value={form.dropshipperPrice}
                     onChange={(event) => setForm((prev) => ({ ...prev, dropshipperPrice: event.target.value }))}
-                    className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                   />
                   <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-3">
                     <p className="text-xs text-green-400">Profit/unit</p>
@@ -463,20 +463,20 @@ const AdminProducts = () => {
                     placeholder="MOQ"
                     value={form.moq}
                     onChange={(event) => setForm((prev) => ({ ...prev, moq: event.target.value }))}
-                    className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                   />
                 )}
                 <input
                   placeholder="Weight"
                   value={form.weight}
                   onChange={(event) => setForm((prev) => ({ ...prev, weight: event.target.value }))}
-                  className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                  className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                 />
                 <input
                   placeholder="Dimensions"
                   value={form.dimensions}
                   onChange={(event) => setForm((prev) => ({ ...prev, dimensions: event.target.value }))}
-                  className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                  className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                 />
               </div>
 
@@ -486,7 +486,7 @@ const AdminProducts = () => {
                     placeholder="Material"
                     value={form.material}
                     onChange={(event) => setForm((prev) => ({ ...prev, material: event.target.value }))}
-                    className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                   />
                 )}
                 {form.contentType === 'product' && (
@@ -498,7 +498,7 @@ const AdminProducts = () => {
                         stockStatus: event.target.value as ProductForm['stockStatus'],
                       }))
                     }
-                    className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                    className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
                   >
                     <option value="in_stock">in_stock</option>
                     <option value="low_stock">low_stock</option>
@@ -512,20 +512,20 @@ const AdminProducts = () => {
                 placeholder="Description"
                 value={form.description}
                 onChange={(event) => setForm((prev) => ({ ...prev, description: event.target.value }))}
-                className="w-full rounded-lg border border-zinc-800 bg-[#111111] px-4 py-3 text-sm text-white focus:border-orange-500 focus:outline-none"
+                className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none"
               />
 
               {form.contentType === 'product' && (
                 <div>
-                  <p className="mb-3 text-sm text-zinc-400">Available Sizes</p>
+                  <p className="mb-3 text-sm text-foreground-muted">Available Sizes</p>
                   <div className="flex flex-wrap gap-2">
                     {sizeOptions.map((size) => (
                       <label
                         key={size}
                         className={`cursor-pointer rounded-lg border px-3 py-2 text-sm transition ${
                           form.sizes.includes(size)
-                            ? 'border-[#F5A623] text-[#F5A623]'
-                            : 'border-zinc-800 bg-[#111111] text-zinc-400 hover:border-zinc-600'
+                            ? 'border-primary text-primary'
+                            : 'border-border bg-surface text-foreground-muted hover:border-zinc-600'
                         }`}
                       >
                         <input
@@ -549,10 +549,10 @@ const AdminProducts = () => {
               )}
 
               <div>
-                <p className="mb-2 text-sm text-zinc-400">Product Images</p>
-                <label className="block cursor-pointer rounded-xl border-2 border-dashed border-zinc-700 p-8 text-center transition hover:border-orange-500">
-                  <Upload className="mx-auto h-5 w-5 text-zinc-500" />
-                  <p className="mt-2 text-zinc-500">Click or drag images here</p>
+                <p className="mb-2 text-sm text-foreground-muted">Product Images</p>
+                <label className="block cursor-pointer rounded-xl border-2 border-dashed border-border p-8 text-center transition hover:border-primary">
+                  <Upload className="mx-auto h-5 w-5 text-foreground-muted" />
+                  <p className="mt-2 text-foreground-muted">Click or drag images here</p>
                   <p className="text-xs text-zinc-600">JPG, PNG, WEBP up to 50MB each</p>
                   <input
                     type="file"
@@ -569,7 +569,7 @@ const AdminProducts = () => {
                       <button
                         type="button"
                         onClick={() => setExistingImages((prev) => prev.filter((_, i) => i !== index))}
-                        className="absolute right-1 top-1 rounded-full bg-black/70 p-0.5 text-white"
+                        className="absolute right-1 top-1 rounded-full bg-black/70 p-0.5 text-foreground"
                       >
                         <X className="h-3 w-3" />
                       </button>
@@ -581,7 +581,7 @@ const AdminProducts = () => {
                       <button
                         type="button"
                         onClick={() => setImages((prev) => prev.filter((_, i) => i !== index))}
-                        className="absolute right-1 top-1 rounded-full bg-black/70 p-0.5 text-white"
+                        className="absolute right-1 top-1 rounded-full bg-black/70 p-0.5 text-foreground"
                       >
                         <X className="h-3 w-3" />
                       </button>
@@ -592,10 +592,10 @@ const AdminProducts = () => {
 
               {allowsVideo ? (
                 <div>
-                  <p className="mb-2 text-sm text-zinc-400">Product Video (Optional)</p>
-                  <label className="block cursor-pointer rounded-xl border-2 border-dashed border-zinc-700 p-6 text-center transition hover:border-orange-500">
-                    <Upload className="mx-auto h-5 w-5 text-zinc-500" />
-                    <p className="mt-2 text-zinc-500">{video?.name ?? 'Click or drag MP4 here'}</p>
+                  <p className="mb-2 text-sm text-foreground-muted">Product Video (Optional)</p>
+                  <label className="block cursor-pointer rounded-xl border-2 border-dashed border-border p-6 text-center transition hover:border-primary">
+                    <Upload className="mx-auto h-5 w-5 text-foreground-muted" />
+                    <p className="mt-2 text-foreground-muted">{video?.name ?? 'Click or drag MP4 here'}</p>
                     <input
                       type="file"
                       accept=".mp4"
@@ -611,10 +611,10 @@ const AdminProducts = () => {
               )}
 
               <div>
-                <p className="mb-2 text-sm text-zinc-400">Design Kit PDF (Optional)</p>
-                <label className="block cursor-pointer rounded-xl border-2 border-dashed border-zinc-700 p-6 text-center transition hover:border-orange-500">
-                  <Upload className="mx-auto h-5 w-5 text-zinc-500" />
-                  <p className="mt-2 text-zinc-500">{pdf?.name ?? 'Click or drag PDF here'}</p>
+                <p className="mb-2 text-sm text-foreground-muted">Design Kit PDF (Optional)</p>
+                <label className="block cursor-pointer rounded-xl border-2 border-dashed border-border p-6 text-center transition hover:border-primary">
+                  <Upload className="mx-auto h-5 w-5 text-foreground-muted" />
+                  <p className="mt-2 text-foreground-muted">{pdf?.name ?? 'Click or drag PDF here'}</p>
                   <input
                     type="file"
                     accept=".pdf"
@@ -627,7 +627,7 @@ const AdminProducts = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-6 w-full rounded-xl bg-orange-500 py-3 font-bold text-white disabled:opacity-60"
+                className="mt-6 w-full rounded-xl bg-primary py-3 font-bold text-foreground disabled:opacity-60"
               >
                 {isSubmitting ? 'Saving...' : 'Save Product'}
               </button>

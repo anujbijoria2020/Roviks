@@ -67,6 +67,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
     const userObj = user.toObject();
     delete (userObj as any).password;
+    delete (userObj as any).shopify?.accessToken;
 
     res.status(200).json({ token, user: userObj });
   } catch (error) {
@@ -82,7 +83,7 @@ export const getMe = async (req: AuthRequest, res: Response): Promise<void> => {
       return;
     }
 
-    const user = await User.findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password -shopify.accessToken');
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
@@ -107,7 +108,7 @@ export const updateMe = async (req: AuthRequest, res: Response): Promise<void> =
       req.user.id,
       { fullName, phone, whatsappNumber, city, socialHandle },
       { new: true, runValidators: true }
-    ).select('-password');
+    ).select('-password -shopify.accessToken');
 
     if (!user) {
       res.status(404).json({ message: 'User not found' });
