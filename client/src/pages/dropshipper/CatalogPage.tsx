@@ -14,7 +14,6 @@ import { getImageUrl, handleImageError } from '../../utils/imageUrl'
 import type { Category, Product } from '../../types/index'
 
 const skeletonCards = new Array(6).fill(null)
-
 const CatalogPage = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
