@@ -1,8 +1,7 @@
-import { LogIn, Menu, Moon, Sun, X } from 'lucide-react'
+import { LogIn, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { useTheme } from '../context/ThemeContext'
 
 const centerLinks = [
   { label: 'Home', to: '/' },
@@ -14,7 +13,6 @@ const PublicNavbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { user } = useAuth()
-  const { theme } = useTheme()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const handleContactClick = () => {

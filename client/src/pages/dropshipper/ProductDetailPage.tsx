@@ -1,4 +1,4 @@
-import { Download, ExternalLink, Heart, MessageCircle, ShoppingBag } from 'lucide-react'
+import { Download, Heart, MessageCircle, ShoppingBag } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'

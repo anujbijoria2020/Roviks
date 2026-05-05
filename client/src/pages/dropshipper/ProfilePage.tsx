@@ -1,4 +1,4 @@
-import { CheckCircle, Lock, Pencil, ShoppingBag, XCircle } from 'lucide-react'
+import { CheckCircle, Lock, Pencil, ShoppingBag } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { updateMe } from '../../api/auth.api'

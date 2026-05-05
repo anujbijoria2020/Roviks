@@ -1,9 +1,8 @@
-import { ArrowUpRight, Bell, Grid, Home, LayoutDashboard, LogOut, Moon, Package, Sun, User } from 'lucide-react'
+import { ArrowUpRight, Bell, Grid, Home, LayoutDashboard, LogOut, Package, User } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { getNotifications } from '../api/admin.api'
 import { useAuth } from '../context/AuthContext'
-import { useTheme } from '../context/ThemeContext'
 import type { Notification } from '../types/index'
 
 const navItems = [
@@ -24,7 +23,6 @@ const mobileItems = [
 
 const DashboardLayout = () => {
   const { user, logout } = useAuth()
-  const { theme } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
   const [notifications, setNotifications] = useState<Notification[]>([])
