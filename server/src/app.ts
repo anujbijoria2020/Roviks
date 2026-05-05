@@ -14,7 +14,7 @@ const app = express();
 
 const allowedOrigins = [
   process.env.CLIENT_URL || 'http://localhost:5173',
-  'http://localhost:5173'
+  'https://roviks-1.onrender.com',
 ];
 
 app.use(
