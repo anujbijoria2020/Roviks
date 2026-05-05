@@ -5,6 +5,7 @@ const admin_controller_1 = require("../controllers/admin.controller");
 const auth_middleware_1 = require("../middleware/auth.middleware");
 const asyncHandler_1 = require("../utils/asyncHandler");
 const settings_controller_1 = require("../controllers/settings.controller");
+const upload_middleware_1 = require("../middleware/upload.middleware");
 const router = (0, express_1.Router)();
 router.get('/stats', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(admin_controller_1.getStats));
 router.get('/dropshippers', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(admin_controller_1.getAllDropshippers));
@@ -13,5 +14,5 @@ router.patch('/dropshippers/:id/block', auth_middleware_1.verifyToken, auth_midd
 router.get('/dropshippers/:id/orders', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(admin_controller_1.getDropshipperOrders));
 // router.put('/settings', verifyToken, isAdmin, asyncHandler(updateSettings));
 // router.get('/settings', verifyToken, isAdmin, asyncHandler(getSettings));
-router.post('/settings/upload-design-kit', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(settings_controller_1.uploadDesignKitPdf));
+router.post('/settings/upload-design-kit', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, upload_middleware_1.uploadDesignKitPdf, (0, asyncHandler_1.asyncHandler)(settings_controller_1.uploadDesignKitPdf));
 exports.default = router;
