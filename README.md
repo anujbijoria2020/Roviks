@@ -45,6 +45,7 @@ Prerequisites:
 
    - Install dependencies and run in development:
 
+  
      ```bash
      cd client
      npm install
