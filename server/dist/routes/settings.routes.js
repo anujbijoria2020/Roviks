@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const settings_controller_1 = require("../controllers/settings.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const upload_middleware_1 = require("../middleware/upload.middleware");
+const asyncHandler_1 = require("../utils/asyncHandler");
+const router = (0, express_1.Router)();
+router.get('/whatsapp', (0, asyncHandler_1.asyncHandler)(settings_controller_1.getWhatsappNumber));
+router.patch('/whatsapp', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(settings_controller_1.updateWhatsappNumber));
+router.get('/design-kit-pdf', (0, asyncHandler_1.asyncHandler)(settings_controller_1.getDesignKitPdfUrl));
+router.patch('/design-kit-pdf', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, (0, asyncHandler_1.asyncHandler)(settings_controller_1.updateDesignKitPdfUrl));
+router.post('/design-kit-pdf/upload', auth_middleware_1.verifyToken, auth_middleware_1.isAdmin, upload_middleware_1.uploadDesignKitPdf, (0, asyncHandler_1.asyncHandler)(settings_controller_1.uploadDesignKitPdf));
+exports.default = router;
