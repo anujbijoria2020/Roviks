@@ -1,4 +1,4 @@
-import { LayoutDashboard, Megaphone, Package, ShoppingBag, Users, LogOut } from 'lucide-react'
+import { LayoutDashboard, Megaphone, Package, ShoppingBag, Users, LogOut, MessageCircle } from 'lucide-react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
@@ -6,6 +6,7 @@ const mobileItems = [
   { label: 'Home', to: '/admin', icon: LayoutDashboard, end: true },
   { label: 'Products', to: '/admin/products', icon: Package },
   { label: 'Orders', to: '/admin/orders', icon: ShoppingBag },
+  { label: 'Messages', to: '/admin/messages', icon: MessageCircle },
   { label: 'Alerts', to: '/admin/announcements', icon: Megaphone },
 ]
 
@@ -14,6 +15,7 @@ const navItems = [
   { label: 'Products', to: '/admin/products', icon: Package },
   { label: 'Orders', to: '/admin/orders', icon: ShoppingBag },
   { label: 'Dropshippers', to: '/admin/dropshippers', icon: Users },
+  { label: 'Messages', to: '/admin/messages', icon: MessageCircle },
   { label: 'Announcements', to: '/admin/announcements', icon: Megaphone },
 ]
 

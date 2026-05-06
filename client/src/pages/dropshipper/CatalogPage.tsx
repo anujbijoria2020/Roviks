@@ -29,6 +29,8 @@ const CatalogPage = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [designKitPdfUrl, setDesignKitPdfUrl] = useState('')
 
+  const isLoggedIn = !!user
+
   useEffect(() => {
     document.title = 'Product Catalog - ROVIKS'
 
@@ -92,22 +94,22 @@ const CatalogPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-background text-gray-900 dark:text-foreground">
-      <PublicNavbar />
+      {!isLoggedIn && <PublicNavbar />}
 
-      <main className="mx-auto w-full max-w-7xl px-6 pb-16 pt-24">
-        <div className="animate-[fadeIn_0.2s_ease] text-foreground">
-          <h1 className="text-6xl font-black text-primary uppercase">CATALOG</h1>
-          <p className="mt-2 text-gray-600 dark:text-foreground-muted">Browse products, mockups, and designs — all in one place.</p>
+      <main className="mx-auto w-full max-w-7xl px-4 sm:px-6 pb-20 lg:pb-8 pt-24">
+        <div className="animate-[fadeIn_0.2s_ease] text-foreground text-center">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-black text-primary uppercase">CATALOG</h1>
+          <p className="mt-2 text-sm sm:text-base text-gray-600 dark:text-foreground-muted">Browse products, mockups, and designs — all in one place.</p>
 
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex gap-3">
+          <div className="mt-6 sm:mt-8 flex flex-col gap-4">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
               <button
                 type="button"
                 onClick={() => {
                   setActiveTab('product')
                   setSelectedSize('all')
                 }}
-                className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition ${
+                className={`px-6 sm:px-8 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition ${
                   activeTab === 'product'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-transparent border border-gray-300 dark:border-border text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-primary'
@@ -121,7 +123,7 @@ const CatalogPage = () => {
                   setActiveTab('mockup')
                   setSelectedSize('all')
                 }}
-                className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition ${
+                className={`px-6 sm:px-8 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition ${
                   activeTab === 'mockup'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-transparent border border-gray-300 dark:border-border text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-primary'
@@ -135,7 +137,7 @@ const CatalogPage = () => {
                   setActiveTab('design')
                   setSelectedSize('all')
                 }}
-                className={`px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider transition ${
+                className={`px-6 sm:px-8 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition ${
                   activeTab === 'design'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-transparent border border-gray-300 dark:border-border text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-primary'
@@ -146,13 +148,13 @@ const CatalogPage = () => {
             </div>
 
             {designKitPdfUrl && (
-              <div className="flex items-center gap-3 rounded-lg border border-yellow-400 dark:border-primary/30 bg-yellow-100 dark:bg-primary/50 px-4 py-2 shadow-sm">
-                <span className="text-sm font-bold text-yellow-900 dark:text-black">Launch Your Own Design</span>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 rounded-lg border border-yellow-400 dark:border-primary/30 bg-yellow-100 dark:bg-primary/50 px-3 sm:px-4 py-2 shadow-sm">
+                <span className="text-xs sm:text-sm font-bold text-yellow-900 dark:text-black text-center sm:text-left">Launch Your Own Design</span>
                 <a
                   href={designKitPdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-lg border border-yellow-500 dark:border-primary/40 bg-white dark:bg-background px-4 py-2 text-sm font-medium text-yellow-900 dark:text-foreground transition hover:bg-yellow-50 hover:border-yellow-600 dark:hover:border-primary dark:hover:text-primary"
+                  className="flex items-center justify-center gap-2 rounded-lg border border-yellow-500 dark:border-primary/40 bg-white dark:bg-background px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-yellow-900 dark:text-foreground transition hover:bg-yellow-50 hover:border-yellow-600 dark:hover:border-primary dark:hover:text-primary"
                 >
                   <Download className="h-4 w-4" />
                   <span>Download Kit</span>
@@ -161,26 +163,26 @@ const CatalogPage = () => {
             )}
           </div>
 
-          <div className="mt-6 max-w-xl">
+          <div className="mt-4 sm:mt-6 max-w-xl mx-auto w-full">
             <div className="relative w-full">
-              <Search className="absolute left-4 top-3.5 h-4 w-4 text-foreground-muted" />
+              <Search className="absolute left-3 sm:left-4 top-3 sm:top-3.5 h-4 w-4 text-foreground-muted" />
               <input
                 type="text"
                 value={search}
                 onChange={(event) => setSearch(event.target.value)}
                 placeholder={`Search ${activeTab}s...`}
-                className="w-full rounded-xl border border-gray-300 dark:border-border bg-white dark:bg-surface-secondary py-3 pl-10 pr-4 text-gray-900 dark:text-foreground placeholder-gray-500 dark:placeholder-zinc-500 transition focus:border-primary focus:outline-none"
+                className="w-full rounded-xl border border-gray-300 dark:border-border bg-white dark:bg-surface-secondary py-2.5 sm:py-3 pl-9 sm:pl-10 pr-4 text-sm text-gray-900 dark:text-foreground placeholder-gray-500 dark:placeholder-zinc-500 transition focus:border-primary focus:outline-none"
               />
             </div>
           </div>
 
-          <div className="mt-4">
-            <p className="text-sm text-gray-600 dark:text-foreground-muted">Category:</p>
-            <div className="mt-2 flex w-full gap-2 overflow-x-auto whitespace-nowrap pb-2">
+          <div className="mt-3 sm:mt-4">
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-foreground-muted">Category:</p>
+            <div className="mt-2 flex w-full gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
               <button
                 type="button"
                 onClick={() => setSelectedCategory('all')}
-                className={`cursor-pointer rounded-full px-4 py-2 text-sm transition ${
+                className={`cursor-pointer rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm transition shrink-0 ${
                   selectedCategory === 'all'
                     ? 'bg-primary font-medium text-foreground'
                     : 'border border-gray-300 dark:border-border bg-white dark:bg-surface-secondary text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-foreground'
@@ -193,7 +195,7 @@ const CatalogPage = () => {
                   key={category.slug}
                   type="button"
                   onClick={() => setSelectedCategory(category.slug)}
-                  className={`cursor-pointer rounded-full px-4 py-2 text-sm transition ${
+                  className={`cursor-pointer rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm transition shrink-0 ${
                     selectedCategory === category.slug
                       ? 'bg-primary font-medium text-foreground'
                       : 'border border-border bg-surface-secondary text-foreground-muted hover:border-primary hover:text-foreground'
@@ -207,14 +209,14 @@ const CatalogPage = () => {
 
           {activeTab === 'product' && (
             <div className="mt-3">
-              <p className="text-sm text-gray-600 dark:text-foreground-muted">Size:</p>
-              <div className="mt-2 flex w-full gap-2 overflow-x-auto whitespace-nowrap pb-2">
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-foreground-muted">Size:</p>
+              <div className="mt-2 flex w-full gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
                 {['All', 'XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL'].map((size) => (
                   <button
                     key={size}
                     type="button"
                     onClick={() => setSelectedSize(size.toLowerCase())}
-                    className={`cursor-pointer rounded-full px-4 py-2 text-sm transition ${
+                    className={`cursor-pointer rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm transition shrink-0 ${
                       selectedSize === size.toLowerCase()
                         ? 'bg-primary font-medium text-foreground'
                         : 'border border-gray-300 dark:border-border bg-white dark:bg-surface-secondary text-gray-600 dark:text-foreground-muted hover:border-primary hover:text-foreground'

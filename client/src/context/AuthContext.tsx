@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (loggedInUser.role === 'admin' && loggedInUser.isApproved) {
       navigate('/admin')
     } else if (loggedInUser.role === 'dropshipper' && loggedInUser.isApproved) {
-      navigate('/dashboard')
+      navigate('/catalog')
     } else if (loggedInUser.role === 'dropshipper' && !loggedInUser.isApproved) {
       navigate('/pending')
     }

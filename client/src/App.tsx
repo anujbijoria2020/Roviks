@@ -7,6 +7,7 @@ import AdminDashboard from './pages/admin/AdminDashboard'
 import AdminDropshippers from './pages/admin/AdminDropshippers'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminProducts from './pages/admin/AdminProducts'
+import AdminMessages from './pages/admin/AdminMessages'
 import LoginPage from './pages/auth/LoginPage'
 import PendingApprovalPage from './pages/auth/PendingApprovalPage'
 import RegisterPage from './pages/auth/RegisterPage'
@@ -17,6 +18,7 @@ import MyOrdersPage from './pages/dropshipper/MyOrdersPage'
 import NotificationsPage from './pages/dropshipper/NotificationsPage'
 import ProductDetailPage from './pages/dropshipper/ProductDetailPage'
 import ProfilePage from './pages/dropshipper/ProfilePage'
+import DropshipperContactPage from './pages/dropshipper/ContactPage'
 import LandingPage from './pages/LandingPage'
 import NotFoundPage from './pages/NotFoundPage'
 import StartSellingPage from './pages/StartSellingPage'
@@ -47,6 +49,11 @@ const App = () => {
           <Route path="orders" element={<MyOrdersPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="notifications" element={<NotificationsPage />} />
+          <Route path="contact" element={<DropshipperContactPage />} />
+        </Route>
+        <Route path="/catalog" element={<DashboardLayout />}>
+          <Route index element={<CatalogPage />} />
+          <Route path=":id" element={<ProductDetailPage />} />
         </Route>
       </Route>
 
@@ -57,6 +64,7 @@ const App = () => {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="dropshippers" element={<AdminDropshippers />} />
           <Route path="announcements" element={<AdminAnnouncements />} />
+          <Route path="messages" element={<AdminMessages />} />
         </Route>
       </Route>
 

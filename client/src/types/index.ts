@@ -85,3 +85,13 @@ export interface Announcement {
   isActive: boolean
   expiresAt?: string
 }
+
+export interface Message {
+  _id: string
+  name: string
+  email: string
+  subject: string
+  message: string
+  user?: User
+  createdAt: string
+}
