@@ -1,4 +1,4 @@
-import { ArrowUpRight, Bell, Grid, HelpCircle, Home, LayoutDashboard, MessageCircle, Package, User } from 'lucide-react'
+import { ArrowUpRight, Bell, Grid, HelpCircle, Home, LayoutDashboard, Package, User } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { getNotifications } from '../api/admin.api'
