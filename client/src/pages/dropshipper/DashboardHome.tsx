@@ -1,4 +1,4 @@
-import { Box, CheckCircle, Clock, Megaphone, Package, ShoppingBag } from 'lucide-react'
+import { Box, CheckCircle, Clock, Megaphone, Package, ShoppingBag, ArrowRight } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getAnnouncements } from '../../api/admin.api'
@@ -7,6 +7,7 @@ import { getAllProducts } from '../../api/product.api'
 import Badge from '../../components/ui/Badge'
 import LoadingSkeleton from '../../components/ui/LoadingSkeleton'
 import StatCard from '../../components/ui/StatCard'
+import { getImageUrl, handleImageError } from '../../utils/imageUrl'
 import type { Announcement, Order, Product } from '../../types/index'
 
 const DashboardHome = () => {
@@ -155,6 +156,72 @@ const DashboardHome = () => {
                 </tbody>
               </table>
             </div>
+          )}
+        </div>
+      </section>
+
+      <section className="mt-8">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-foreground">Browse Catalog</h2>
+          <Link to="/catalog" className="flex items-center gap-1 text-sm text-primary hover:underline">
+            View all <ArrowRight className="h-3 w-3" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          {isLoading ? (
+            <>
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="aspect-square rounded-lg bg-surface-secondary" />
+                  <div className="mt-2 h-3 w-20 rounded bg-surface-secondary" />
+                </div>
+              ))}
+            </>
+          ) : products.length === 0 ? (
+            <div className="col-span-full text-center py-8 text-foreground-muted">
+              No products available
+            </div>
+          ) : (
+            products.slice(0, 6).map((product) => {
+              const primaryImage =
+                product.media.find((item) => item.type === 'image' && item.isPrimary)?.url ||
+                product.media.find((item) => item.type === 'image')?.url
+
+              return (
+                <Link
+                  key={product._id}
+                  to={`/catalog/${product._id}`}
+                  className="group cursor-pointer overflow-hidden rounded-lg border border-border bg-surface-secondary transition hover:border-primary/50"
+                >
+                  <div className="aspect-square overflow-hidden bg-surface">
+                    {primaryImage ? (
+                      <img
+                        src={getImageUrl(primaryImage)}
+                        alt={product.name}
+                        className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                        onError={handleImageError}
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center text-foreground-muted">
+                        <Package className="h-8 w-8" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="p-2 sm:p-3">
+                    <p className="text-xs font-medium uppercase tracking-wider text-primary line-clamp-1">
+                      {product.category?.name}
+                    </p>
+                    <h3 className="mt-1 line-clamp-2 text-xs sm:text-sm font-bold uppercase leading-tight text-foreground">
+                      {product.name}
+                    </h3>
+                    {product.contentType === 'product' && (
+                      <p className="mt-2 text-sm font-bold text-foreground">₹{product.dropshipperPrice}</p>
+                    )}
+                  </div>
+                </Link>
+              )
+            })
           )}
         </div>
       </section>

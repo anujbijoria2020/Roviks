@@ -73,7 +73,7 @@ const PublicNavbar = () => {
 
   return (
     <header className="fixed top-0 z-50 h-16 w-full border-b border-gray-200 bg-white dark:border-border dark:bg-surface dark:text-foreground text-gray-900">
-      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between px-4 sm:px-6">
         <button
           type="button"
           onClick={() => navigate('/')}
@@ -107,7 +107,6 @@ const PublicNavbar = () => {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-
           {getPrimaryButton()}
         </div>
 

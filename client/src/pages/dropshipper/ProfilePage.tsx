@@ -1,4 +1,4 @@
-import { CheckCircle, Lock, Pencil, ShoppingBag } from 'lucide-react'
+import { CheckCircle, Lock, Pencil, ShoppingBag, LogOut } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { updateMe } from '../../api/auth.api'
@@ -13,7 +13,7 @@ interface ProfileForm {
 }
 
 const ProfilePage = () => {
-  const { user, updateUser } = useAuth()
+  const { user, updateUser, logout } = useAuth()
   const [isEditing, setIsEditing] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [form, setForm] = useState<ProfileForm>({
@@ -82,17 +82,17 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className="animate-[fadeIn_0.2s_ease] text-foreground">
+    <div className="animate-[fadeIn_0.2s_ease] text-foreground pb-20 lg:pb-0">
       <h1 className="text-3xl font-bold text-foreground">Profile</h1>
       <p className="mt-1 text-foreground-muted">Manage your account information.</p>
 
-      <section className="mt-6 max-w-2xl rounded-2xl border border-border bg-surface-secondary p-8">
-        <div className="mb-8 flex items-center gap-6">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-foreground">
+      <section className="mt-6 max-w-2xl rounded-2xl border border-border bg-surface-secondary p-6 sm:p-8">
+        <div className="mb-8 flex flex-col sm:flex-row items-center sm:items-start gap-6">
+          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-foreground shrink-0">
             {initials}
           </div>
 
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0 flex-1 text-center sm:text-left">
             <h2 className="truncate text-xl font-bold text-foreground">{user.fullName}</h2>
             <p className="truncate text-sm text-foreground-muted">{user.email}</p>
             <span
@@ -104,14 +104,24 @@ const ProfilePage = () => {
             </span>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setIsEditing(true)}
-            className="flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-foreground-muted transition hover:border-primary hover:text-primary"
-          >
-            <Pencil className="h-4 w-4" />
-            Edit Profile
-          </button>
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <button
+              type="button"
+              onClick={() => setIsEditing(true)}
+              className="flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-2 text-sm text-foreground-muted transition hover:border-primary hover:text-primary"
+            >
+              <Pencil className="h-4 w-4" />
+              Edit Profile
+            </button>
+            <button
+              type="button"
+              onClick={() => logout()}
+              className="flex items-center justify-center gap-2 rounded-lg border border-red-500/50 px-4 py-2 text-sm text-red-500 transition hover:border-red-500 hover:bg-red-500/10"
+            >
+              <LogOut className="h-4 w-4" />
+              Sign Out
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

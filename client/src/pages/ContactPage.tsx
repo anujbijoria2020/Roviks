@@ -1,15 +1,18 @@
 import { Clock3, Mail, MessageCircle, Send } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { sendMessage } from '../api/message.api'
 import { getWhatsappNumber } from '../api/settings.api'
 import PublicFooter from '../components/PublicFooter'
 import PublicNavbar from '../components/PublicNavbar'
+import { useAuth } from '../context/AuthContext'
 import { buildWhatsAppUrl } from '../utils/whatsapp'
 
 const ContactPage = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [phone, setPhone] = useState('')
+  const { user } = useAuth()
+  const [name, setName] = useState(user?.fullName ?? '')
+  const [email, setEmail] = useState(user?.email ?? '')
+  const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [whatsappNumber, setWhatsappNumber] = useState('')
@@ -36,20 +39,15 @@ const ContactPage = () => {
     setIsSubmitting(true)
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      await sendMessage({ name, email, subject, message })
       toast.success("Message sent! We'll get back to you soon.")
 
-      const text = `Hi ROVIKS! My name is ${name}. ${message} Contact: ${email} | ${phone || '-'}`
-      const whatsappUrl = buildWhatsAppUrl(whatsappNumber, text)
-
-      if (whatsappUrl) {
-        window.open(whatsappUrl, '_blank')
-      }
-
-      setName('')
-      setEmail('')
-      setPhone('')
+      setName(user?.fullName ?? '')
+      setEmail(user?.email ?? '')
+      setSubject('')
       setMessage('')
+    } catch (error) {
+      toast.error('Something went wrong. Please try again.')
     } finally {
       setIsSubmitting(false)
     }
@@ -145,10 +143,11 @@ const ContactPage = () => {
                 className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder-zinc-500 transition focus:border-primary focus:outline-none"
               />
               <input
-                type="tel"
-                value={phone}
-                onChange={(event) => setPhone(event.target.value)}
-                placeholder="Phone"
+                type="text"
+                value={subject}
+                onChange={(event) => setSubject(event.target.value)}
+                required
+                placeholder="Subject"
                 className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-foreground placeholder-zinc-500 transition focus:border-primary focus:outline-none"
               />
               <textarea
