@@ -13,6 +13,7 @@ import messageRoutes from './routes/message.routes';
 
 const app = express();
 
+app.set('trust proxy', true);
 
 const allowedOrigins = [
   process.env.CLIENT_URL || 'http://localhost:5173',

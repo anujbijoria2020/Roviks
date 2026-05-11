@@ -21,7 +21,7 @@ const upsertSettingValue = async (key: string, value: string) => {
 };
 
 const buildPublicUploadUrl = (req: Request, filename: string) => {
-  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  const baseUrl = process.env.PUBLIC_URL || `${req.protocol}://${req.get('host')}`;
   return `${baseUrl}/uploads/${filename}`;
 };
 
