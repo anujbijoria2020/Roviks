@@ -14,10 +14,12 @@ const admin_routes_1 = __importDefault(require("./routes/admin.routes"));
 const notification_routes_1 = __importDefault(require("./routes/notification.routes"));
 const announcement_routes_1 = __importDefault(require("./routes/announcement.routes"));
 const settings_routes_1 = __importDefault(require("./routes/settings.routes"));
+const message_routes_1 = __importDefault(require("./routes/message.routes"));
 const app = (0, express_1.default)();
 const allowedOrigins = [
     process.env.CLIENT_URL || 'http://localhost:5173',
-    'http://localhost:5173'
+    'https://roviks-1.onrender.com',
+    'https://roviks-ruby.vercel.app',
 ];
 app.use((0, cors_1.default)({
     origin: allowedOrigins,
@@ -33,6 +35,7 @@ app.use('/api/admin', admin_routes_1.default);
 app.use('/api/notifications', notification_routes_1.default);
 app.use('/api/announcements', announcement_routes_1.default);
 app.use('/api/settings', settings_routes_1.default);
+app.use('/api/messages', message_routes_1.default);
 app.use('*', (_req, res) => {
     res.status(404).json({ message: 'Route not found' });
 });

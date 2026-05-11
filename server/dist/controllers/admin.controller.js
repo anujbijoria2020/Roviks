@@ -68,7 +68,11 @@ const getStats = async (_req, res) => {
             totalDropshippers,
             ordersToday,
             ordersThisMonth,
-            ordersByStatus,
+            pendingOrders: ordersByStatus.pending,
+            confirmedOrders: ordersByStatus.confirmed,
+            shippedOrders: ordersByStatus.shipped,
+            deliveredOrders: ordersByStatus.delivered,
+            cancelledOrders: ordersByStatus.cancelled,
             ordersLast30Days
         });
     }
