@@ -90,7 +90,7 @@ const StartSellingSection = ({ className = '', withTopPadding = true }: StartSel
                   </div>
                 </div>
 
-                <div>
+                <div className="mt-auto">
                   <h3 className="text-3xl font-black uppercase leading-none text-foreground">{card.title}</h3>
                   <p className="mt-3 max-w-[26ch] text-sm leading-relaxed text-foreground-secondary">{card.description}</p>
                   <button

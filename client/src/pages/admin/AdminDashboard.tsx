@@ -31,11 +31,13 @@ interface AdminStats {
   totalDropshippers: number
   ordersToday: number
   ordersThisMonth: number
-  pendingOrders: number
-  confirmedOrders: number
-  shippedOrders: number
-  deliveredOrders: number
-  cancelledOrders: number
+  ordersByStatus: {
+    pending: number
+    confirmed: number
+    shipped: number
+    delivered: number
+    cancelled: number
+  }
   ordersLast30Days: { date: string; count: number }[]
 }
 
@@ -53,45 +55,50 @@ const AdminDashboard = () => {
   const [isSavingDesignKitPdf, setIsSavingDesignKitPdf] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
+  const fetchDashboardData = async () => {
+    setIsLoading(true)
+    try {
+      const [statsRes, dropshippersRes, productsRes, whatsappRes, designKitRes] = await Promise.all([
+        getStats(),
+        getAllDropshippers(),
+        getAllProducts(),
+        getWhatsappNumber(),
+        getDesignKitPdfUrl(),
+      ])
+
+      const statsData = (statsRes.data?.stats ?? statsRes.data ?? null) as AdminStats | null
+      const dropshippersData = (dropshippersRes.data?.dropshippers ?? dropshippersRes.data ?? []) as TopDropshipper[]
+      const productsData = (productsRes.data?.products ?? productsRes.data ?? []) as TopProduct[]
+
+      setStats(statsData)
+      setDropshippers(Array.isArray(dropshippersData) ? dropshippersData : [])
+      setProducts(Array.isArray(productsData) ? productsData : [])
+      setWhatsappNumber(
+        whatsappRes.data?.value ??
+          whatsappRes.data?.whatsappNumber ??
+          whatsappRes.data?.settings?.value ??
+          '',
+      )
+      setDesignKitPdfUrl(
+        designKitRes.data?.value ??
+          designKitRes.data?.designKitPdfUrl ??
+          designKitRes.data?.settings?.value ??
+          '',
+      )
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   useEffect(() => {
     document.title = 'Admin Dashboard - ROVIKS'
-
-    const fetchDashboardData = async () => {
-      setIsLoading(true)
-      try {
-        const [statsRes, dropshippersRes, productsRes, whatsappRes, designKitRes] = await Promise.all([
-          getStats(),
-          getAllDropshippers(),
-          getAllProducts(),
-          getWhatsappNumber(),
-          getDesignKitPdfUrl(),
-        ])
-
-        const statsData = (statsRes.data?.stats ?? statsRes.data ?? null) as AdminStats | null
-        const dropshippersData = (dropshippersRes.data?.dropshippers ?? dropshippersRes.data ?? []) as TopDropshipper[]
-        const productsData = (productsRes.data?.products ?? productsRes.data ?? []) as TopProduct[]
-
-        setStats(statsData)
-        setDropshippers(Array.isArray(dropshippersData) ? dropshippersData : [])
-        setProducts(Array.isArray(productsData) ? productsData : [])
-        setWhatsappNumber(
-          whatsappRes.data?.value ??
-            whatsappRes.data?.whatsappNumber ??
-            whatsappRes.data?.settings?.value ??
-            '',
-        )
-        setDesignKitPdfUrl(
-          designKitRes.data?.value ??
-            designKitRes.data?.designKitPdfUrl ??
-            designKitRes.data?.settings?.value ??
-            '',
-        )
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
     void fetchDashboardData()
+
+    const interval = setInterval(() => {
+      void fetchDashboardData()
+    }, 30000) // Refresh every 30 seconds
+
+    return () => clearInterval(interval)
   }, [])
 
   const topProducts = useMemo(
