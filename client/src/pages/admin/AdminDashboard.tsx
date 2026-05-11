@@ -31,13 +31,11 @@ interface AdminStats {
   totalDropshippers: number
   ordersToday: number
   ordersThisMonth: number
-  ordersByStatus: {
-    pending: number
-    confirmed: number
-    shipped: number
-    delivered: number
-    cancelled: number
-  }
+  pendingOrders: number
+  confirmedOrders: number
+  shippedOrders: number
+  deliveredOrders: number
+  cancelledOrders: number
   ordersLast30Days: { date: string; count: number }[]
 }
 
@@ -163,11 +161,11 @@ const AdminDashboard = () => {
 
       <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
         {[
-          ['pending', stats?.ordersByStatus?.pending ?? 0, 'text-yellow-500'],
-          ['confirmed', stats?.ordersByStatus?.confirmed ?? 0, 'text-blue-500'],
-          ['shipped', stats?.ordersByStatus?.shipped ?? 0, 'text-purple-500'],
-          ['delivered', stats?.ordersByStatus?.delivered ?? 0, 'text-green-500'],
-          ['cancelled', stats?.ordersByStatus?.cancelled ?? 0, 'text-red-500'],
+          ['pending', stats?.pendingOrders ?? 0, 'text-yellow-500'],
+          ['confirmed', stats?.confirmedOrders ?? 0, 'text-blue-500'],
+          ['shipped', stats?.shippedOrders ?? 0, 'text-purple-500'],
+          ['delivered', stats?.deliveredOrders ?? 0, 'text-green-500'],
+          ['cancelled', stats?.cancelledOrders ?? 0, 'text-red-500'],
         ].map(([label, count, color]) => (
           <div key={String(label)} className="rounded-xl border border-border bg-surface-secondary p-4 text-center">
             <p className="text-xs uppercase tracking-wider text-foreground-muted">{label}</p>
